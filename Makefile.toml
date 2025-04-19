@@ -1,0 +1,59 @@
+[tasks.build-package]
+script = '''
+cd ./src
+rm -f mtgvortex.sty
+latex mtgvortex.ins
+'''
+
+[tasks.build-documentation]
+script = '''
+cd ./src
+latexmk -pdf -pdflatex=lualatex mtgvortex.dtx -interaction=nonstopmode > mtgvortex.out-log
+'''
+
+[tasks.build-example]
+script = '''
+cd ./examples
+latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode main.tex > main.out-log
+'''
+
+[tasks.test]
+#TODO
+
+[tasks.clean-examples]
+script = '''
+cd ./examples
+latexmk -c
+rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd
+'''
+
+[tasks.clean-tests]
+script = '''
+cd ./tests
+latexmk -c
+rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd
+'''
+
+[tasks.clean-src]
+script = '''
+cd src
+latexmk -c mtgvortex.dtx
+rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd *.out-log
+'''
+
+[tasks.build-all]
+dependencies = [
+  "build-package",
+  "build-documentation",
+  "build-example",
+]
+
+[tasks.clean-all]
+dependencies = [
+  "clean-src",
+  "clean-examples",
+  "clean-tests",
+]
+
+[tasks.default]
+#TODO
