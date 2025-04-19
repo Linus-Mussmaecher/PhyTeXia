@@ -1,0 +1,14 @@
+% \iffalse meta-comment
+% This file contains the implementation for macros that display magic cards in \LaTeX.
+% \fi
+% \subsection{Displaying Cards}
+% First, a basic card command that pull the card from the scryfall API and displays it as an image.
+%
+%    \begin{macrocode}
+\newcommand{\card}[1]{\texttt{#1}}
+%    \end{macrocode}
+% This command will form the basis of many other commands.
+% The |gallery|-command displays multiple cards in centered rows.
+%    \begin{macrocode}
+\newcommand{\gallery}[1]{\textsc{#1}}
+%    \end{macrocode}
