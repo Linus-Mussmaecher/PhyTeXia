@@ -5,6 +5,7 @@
 *.lot
 *.fls
 *.out
+*.out-log
 *.toc
 *.fmt
 *.fot

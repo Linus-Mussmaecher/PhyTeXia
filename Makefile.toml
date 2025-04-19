@@ -11,27 +11,36 @@ cd ./src
 latexmk -pdf -pdflatex=lualatex mtgvortex.dtx -interaction=nonstopmode > mtgvortex.out-log
 '''
 
-[tasks.build-example]
+[tasks.build-examples]
 script = '''
+rm ./examples/mtgvortex.sty
+ln ./src/mtgvortex.sty ./examples/mtgvortex.sty
 cd ./examples
 latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode main.tex > main.out-log
 '''
 
-[tasks.test]
-#TODO
+[tasks.tests]
+script = '''
+rm ./tests/mtgvortex.sty
+ln ./src/mtgvortex.sty ./tests/mtgvortex.sty
+cd ./tests
+latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode cards.tex > cards.out-log
+latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode decks.tex > decks.out-log
+latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode symbols.tex > symbols.out-log
+'''
 
 [tasks.clean-examples]
 script = '''
 cd ./examples
 latexmk -c
-rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd
+rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd *.out-log
 '''
 
 [tasks.clean-tests]
 script = '''
 cd ./tests
 latexmk -c
-rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd
+rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_latexmk *.synctex.gz *.bbl *.gin *.fls *.idx *.ind *~ *.glo *.glg *.gls *.hd *.out-log
 '''
 
 [tasks.clean-src]
@@ -45,7 +54,7 @@ rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_la
 dependencies = [
   "build-package",
   "build-documentation",
-  "build-example",
+  "build-examples",
 ]
 
 [tasks.clean-all]
