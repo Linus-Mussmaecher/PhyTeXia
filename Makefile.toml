@@ -13,16 +13,26 @@ latexmk -pdf -pdflatex=lualatex mtgvortex.dtx -interaction=nonstopmode > mtgvort
 
 [tasks.build-examples]
 script = '''
-rm ./examples/mtgvortex.sty
-ln ./src/mtgvortex.sty ./examples/mtgvortex.sty
+rm -f examples/mtgvortex.sty
+rm -f examples/symbols
+ln -rs src/mtgvortex.sty examples/mtgvortex.sty
+ln -rs src/symbols/png-symbols/ examples/symbols
 cd ./examples
 latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode main.tex > main.out-log
 '''
 
-[tasks.tests]
+[tasks.build-pngs]
 script = '''
-rm ./tests/mtgvortex.sty
-ln ./src/mtgvortex.sty ./tests/mtgvortex.sty
+  cd ./src/symbols
+  ./convert
+'''
+
+[tasks.vortex-test]
+script = '''
+rm -f tests/mtgvortex.sty
+rm -f tests/symbols
+ln -rs src/mtgvortex.sty tests/mtgvortex.sty
+ln -rs src/symbols/png-symbols/ tests/symbols
 cd ./tests
 latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode cards.tex > cards.out-log
 latexmk -pdf -pdflatex=lualatex -interaction=nonstopmode decks.tex > decks.out-log
@@ -51,11 +61,12 @@ rm -f *.ilg *.blg *.bak *.aux *.log *.toc *.out *.brf *.lox *.toe *.thm *.fdb_la
 '''
 
 [tasks.build-all]
-dependencies = [
+run_task = { name = [
+  "build-pngs",
   "build-package",
   "build-documentation",
   "build-examples",
-]
+],  fork = true}
 
 [tasks.clean-all]
 dependencies = [

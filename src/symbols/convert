@@ -16,7 +16,13 @@ for $file in $svgs {
 	let new_name = $file.name | str replace -a 'svg' 'png';
 	# print progress
 	$current = $current + 1;
-	["[", $current, "/", $total, "] ", $new_name, "\n"] | str join | print;
-	# actual conversion
-	inkscape -w 128 -h 128 $file.name -o $new_name;
+	["[", $current, "/", $total, "] ", $new_name] | str join | print;
+	# check if the result already exists
+	if not ($new_name | path exists) {
+		# actual conversion
+		inkscape -w 128 -h 128 $file.name -o $new_name;
+		" - Converted" | print;
+	} else {
+		" - Found" | print;
+	}
 }
