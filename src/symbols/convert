@@ -1,0 +1,22 @@
+#!/usr/bin/nu
+
+# get all svgs in the symbols folder
+let svgs = ls svg-symbols/ | where name =~ '.svg';
+
+# create the target directory for the compiled pngs
+mkdir png-symbols/;
+
+# Variables for tracking progress
+let total = $svgs | length;
+mut current = 0;
+
+# iterate over the svgs
+for $file in $svgs {
+	# generate the new name by replacing svg with png, once in the directory and once in the extension
+	let new_name = $file.name | str replace -a 'svg' 'png';
+	# print progress
+	$current = $current + 1;
+	["[", $current, "/", $total, "] ", $new_name, "\n"] | str join | print;
+	# actual conversion
+	inkscape -w 128 -h 128 $file.name -o $new_name;
+}
