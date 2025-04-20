@@ -31,13 +31,42 @@
 \@VorTeXtooltipstrue
 }
 \ProcessOptionsX[mtgvortex]<mtg>
+\RequirePackage{graphicx}
 \newcommand{\mtgcard}[1]{\texttt{#1}}
 \newcommand{\mtggallery}[1]{\textsc{#1}}
-\newcommand{\mtgwhite}{\texttt{W}}
-\newcommand{\mtgblue}{\texttt{U}}
-\newcommand{\mtgblack}{\texttt{B}}
-\newcommand{\mtgred}{\texttt{R}}
-\newcommand{\mtggreen}{\texttt{G}}
+
+\newcommand{\mtgsymbolheight}{0.6\baselineskip}
+
+
+\newcommand{\mtgwhite}{\includegraphics[height=\mtgsymbolheight]{symbols/W.png}}
+\newcommand{\mtgblue} {\includegraphics[height=\mtgsymbolheight]{symbols/U.png}}
+\newcommand{\mtgblack}{\includegraphics[height=\mtgsymbolheight]{symbols/B.png}}
+\newcommand{\mtgred}  {\includegraphics[height=\mtgsymbolheight]{symbols/R.png}}
+\newcommand{\mtggreen}{\includegraphics[height=\mtgsymbolheight]{symbols/G.png}}
+
+
+\newcommand{\mtgW}{\mtgwhite}
+\newcommand{\mtgU} {\mtgblue}
+\newcommand{\mtgB}{\mtgblack}
+\newcommand{\mtgR}  {\mtgred}
+\newcommand{\mtgG}{\mtggreen}
+
+
+\newcommand{\mtggeneric}[1]{\directlua{
+
+
+local input = "#1";
+local input_prim = #1;
+
+
+if type(input_prim) == "number" and 0 <= input_prim and input_prim <= 20 then
+tex.sprint("\\includegraphics[height=\\mtgsymbolheight]{symbols/", input_prim, "}");
+elseif input == "X" then
+tex.sprint("\\includegraphics[height=\\mtgsymbolheight]{symbols/X.png}")
+else
+tex.sprint("(\\texttt{", input, "})")
+end
+}}
 \newcommand{\mtgdeck}[1]{I love my deck, #1!}
 \endinput
 %%

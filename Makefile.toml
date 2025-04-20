@@ -27,7 +27,7 @@ script = '''
   ./convert
 '''
 
-[tasks.vortex-test]
+[tasks.build-tests]
 script = '''
 rm -f tests/mtgvortex.sty
 rm -f tests/symbols
@@ -74,6 +74,13 @@ dependencies = [
   "clean-examples",
   "clean-tests",
 ]
+
+[tasks.build-and-test]
+run_task = { name = [
+  "build-package",
+  "build-tests",
+],  fork = true}
+
 
 [tasks.default]
 #TODO
