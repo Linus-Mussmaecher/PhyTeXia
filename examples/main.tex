@@ -1,4 +1,5 @@
 \documentclass[a4paper]{scrartcl}
+\usepackage{mtgvortex}
 
 \title{MTG VorTeX}
 \author{Linus Mußmächer}
@@ -6,14 +7,17 @@
 \begin{document}
 	\maketitle
 
-	\emph{MTG Vortex} is a \LaTeX package for writing guides for the card game \emph{Magic: The Gathering} in \LaTeX.
+	\emph{MTG Vortex} is a \LaTeX{} package for writing guides for the card game \emph{Magic: The Gathering} in \LaTeX{}.
 
-	VorTeX supplies the user with a number of macros to include cards, images, mechanics and MTG-specific symbols in \LaTeX documents.
+	VorTeX supplies the user with a number of macros to include cards, images, mechanics and MTG-specific symbols in \LaTeX{} documents.
 	Note that VorTeX relies heavily on LuaTeX and will thus only work with compatible compilers.
 
 	\section{Cards}
 
 	\section{Symbols}
+	The five colors of mana in Magic are \mtgwhite, \mtgblue, \mtgblack, \mtgred\ and \mtggreen .
+
+	In costs, there is also generic mana, such as \mtggeneric{1}, \mtggeneric{20} or \mtggeneric{X} and \mtggeneric{Y}.
 
 	\section{Decks}
 \end{document}
