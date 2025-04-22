@@ -1,9 +1,9 @@
-# MTG VorTeX
+# PhyTeXia
 
-MTG Vortex is a LaTeX package for writing guides for the card game Magic: The Gathering in LaTeX.
+PhyTeXia is a LaTeX package for writing guides for the card game Magic: The Gathering in LaTeX.
 
-Vortex supplies the user with a number of macros to include cards, images, mechanics and MTG-specific symbols in LaTeX documents.
-Note that Vortex relies heavily on LuaTeX and will thus only work with such compilers.
+PhyTeXia supplies the user with a number of macros to include cards, images, mechanics and MTG-specific symbols in LaTeX documents.
+Note that PhyTeXia relies heavily on LuaTeX and will thus only work with such compilers.
 
 ## Features
 This section includes both completed and planned features while development is still ongoing.

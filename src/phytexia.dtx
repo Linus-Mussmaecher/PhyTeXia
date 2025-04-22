@@ -15,19 +15,19 @@
 % \fi
 %
 %\iffalse
-%<*mtgvortex>
+%<*phytexia>
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{mtgvortex}
+\ProvidesPackage{phytexia}
 	[2025/04/19 v0.0.1 Initial Test Version]
 
-%</mtgvortex>
+%</phytexia>
 %
 %<*driver>
 \documentclass{ltxdoc}
 
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{mtgvortex}
+\usepackage{phytexia}
 \usepackage{xcolor}
 \usepackage{gitinfo2}
 \usepackage[linktoc=all]{hyperref}
@@ -40,7 +40,7 @@
 \RecordChanges
 
 \begin{document}
-	\DocInput{mtgvortex.dtx}
+	\DocInput{phytexia.dtx}
 \end{document}
 %</driver>
 %\fi
@@ -49,12 +49,12 @@
 %
 % \changes{v0.1}{2025/04/19}{Initial Test Version}
 %
-% \GetFileInfo{mtgvortex.sty}
+% \GetFileInfo{phytexia.sty}
 %
-% \title{MTGVorTeX -- A Magic: The Gathering Package for LaTeX}
+% \title{PhyTeXia -- A Magic: The Gathering Package for \LaTeX}
 % \author{ChairX \\
 % \ifdraft{Last changes by \gitAuthorName{} on \gitAuthorDate \\ }
-% \ifdraft{Git revision of mtgvortex:}
+% \ifdraft{Git revision of PhyTeXia:}
 % \ifdraft{\texttt{\gitAbbrevHash{}} {\gitReferences{}} \\ }
 % \ifdraft{}
 % Version \fileversion{} (\filedate) \\
@@ -90,7 +90,7 @@
 % Define option for including tooltips (only works with Adobe Acrobat).
 %
 %    \begin{macrocode}
-\DeclareOptionX[mtgvortex]<mtg>{tooltips}{
+\DeclareOptionX[phytexia]<mtg>{tooltips}{
 	\@VorTeXtooltipstrue
 }
 %    \end{macrocode}
@@ -98,7 +98,7 @@
 % Process options for the style file
 %
 %    \begin{macrocode}
-\ProcessOptionsX[mtgvortex]<mtg>
+\ProcessOptionsX[phytexia]<mtg>
 %    \end{macrocode}
 %
 % \subsection{Required Packages}
@@ -108,13 +108,13 @@
 %    \end{macrocode}
 %
 % \section{Cards}
-% \input{mtgvortex-cards.dtx}
+% \input{phytexia-cards.dtx}
 %
 % \section{Symbols}
-% \input{mtgvortex-symbols.dtx}
+% \input{phytexia-symbols.dtx}
 %
 % \section{Decks}
-% \input{mtgvortex-decks.dtx}
+% \input{phytexia-decks.dtx}
 %
 % \Finale
 \endinput

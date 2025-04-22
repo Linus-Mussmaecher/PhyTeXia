@@ -22,8 +22,9 @@
 # *.eps
 # *.pdf
 
-## Generated pdf files
+## Generated pdf and style files
 *.pdf
+*.sty
 
 ## Bibliography auxiliary files (bibtex/biblatex/biber):
 *.bbl
