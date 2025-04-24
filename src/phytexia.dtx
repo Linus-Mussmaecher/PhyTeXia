@@ -85,14 +85,14 @@
 % Process Options.
 %
 %    \begin{macrocode}
-\newif\if@VorTeXtooltips \@VorTeXtooltipsfalse
+\newif\if@mtgtooltips \@mtgtooltipsfalse
 %    \end{macrocode}
 %
 % Define option for including tooltips (only works with Adobe Acrobat).
 %
 %    \begin{macrocode}
 \DeclareOptionX[phytexia]<mtg>{tooltips}{
-	\@VorTeXtooltipstrue
+	\@mtgtooltipstrue
 }
 %    \end{macrocode}
 %
@@ -106,6 +106,7 @@
 %
 %    \begin{macrocode}
 \RequirePackage{graphicx}
+\RequirePackage{luacode}
 %    \end{macrocode}
 %
 % \section{Cards}
