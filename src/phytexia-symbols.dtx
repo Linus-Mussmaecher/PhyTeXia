@@ -1,30 +1,93 @@
 % \iffalse meta-comment
 % This file contains the implementation for macros that display symbols relevant in MTG.
 % \fi
-% First, we define a common height for all symbols to have.
+% First, we define a common height for all symbols to have using fontspec.
+% The symbol scale is later multiplied with the height of an X in the current font size and allows the user to scale symbols throughout the text.
 %    \begin{macrocode}
-\newcommand{\mtgsymbolheight}{0.6\baselineskip}
+\newcommand{\mtgsymbolscale}{1}
+\newlength{\mtgsymbolheight}{}
+%    \end{macrocode}
+% Define a helper function for including an image of the appropriate size
+%    \begin{macrocode}
+\newcommand{\mtgsymbol}[1]{\settoheight{\mtgsymbolheight}{X}\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}}
 %    \end{macrocode}
 %
 % \subsection{Basic Mana Symbols}
 %
-% First, we define five commands for the basic colors of mana:
+% First, we define five commands for the basic colors of mana as well as colorless mana:
 %
 %    \begin{macrocode}
-\newcommand{\mtgwhite}{\includegraphics[height=\mtgsymbolheight]{symbols/W.png}}
-\newcommand{\mtgblue} {\includegraphics[height=\mtgsymbolheight]{symbols/U.png}}
-\newcommand{\mtgblack}{\includegraphics[height=\mtgsymbolheight]{symbols/B.png}}
-\newcommand{\mtgred}  {\includegraphics[height=\mtgsymbolheight]{symbols/R.png}}
-\newcommand{\mtggreen}{\includegraphics[height=\mtgsymbolheight]{symbols/G.png}}
+\newcommand{\mtgW}{\mtgsymbol{symbols/W.png}}
+\newcommand{\mtgU}{\mtgsymbol{symbols/U.png}}
+\newcommand{\mtgB}{\mtgsymbol{symbols/B.png}}
+\newcommand{\mtgR}{\mtgsymbol{symbols/R.png}}
+\newcommand{\mtgG}{\mtgsymbol{symbols/G.png}}
+\newcommand{\mtgC}{\mtgsymbol{symbols/C.png}}
 %    \end{macrocode}
 % This command will form the basis of many other commands.
-% We also define aliases based on their short forms.
+% We also define aliases based on their long forms.
 %    \begin{macrocode}
-\newcommand{\mtgW}{\mtgwhite}
-\newcommand{\mtgU} {\mtgblue}
-\newcommand{\mtgB}{\mtgblack}
-\newcommand{\mtgR}  {\mtgred}
-\newcommand{\mtgG}{\mtggreen}
+\newcommand{\mtgwhite}{\mtgW}
+\newcommand{\mtgblue}{\mtgU}
+\newcommand{\mtgblack}{\mtgB}
+\newcommand{\mtgred}{\mtgR}
+\newcommand{\mtggreen}{\mtgG}
+\newcommand{\mtgcolorless}{\mtgC}
+%    \end{macrocode}
+% Next, we define the Phyrexian mana symbols:
+%    \begin{macrocode}
+\newcommand{\mtgWP}{\mtgsymbol{symbols/WP.png}}
+\newcommand{\mtgUP}{\mtgsymbol{symbols/UP.png}}
+\newcommand{\mtgBP}{\mtgsymbol{symbols/BP.png}}
+\newcommand{\mtgRP}{\mtgsymbol{symbols/RP.png}}
+\newcommand{\mtgGP}{\mtgsymbol{symbols/GP.png}}
+%    \end{macrocode}
+% as well as 2brid mana
+%    \begin{macrocode}
+\newcommand{\mtgTwoW}{\mtgsymbol{symbols/2W.png}}
+\newcommand{\mtgTwoU}{\mtgsymbol{symbols/2U.png}}
+\newcommand{\mtgTwoB}{\mtgsymbol{symbols/2B.png}}
+\newcommand{\mtgTwoR}{\mtgsymbol{symbols/2R.png}}
+\newcommand{\mtgTwoG}{\mtgsymbol{symbols/2G.png}}
+%    \end{macrocode}
+% and colorless hybrid mana
+%    \begin{macrocode}
+\newcommand{\mtgCW}{\mtgsymbol{symbols/CW.png}}
+\newcommand{\mtgCU}{\mtgsymbol{symbols/CU.png}}
+\newcommand{\mtgCB}{\mtgsymbol{symbols/CB.png}}
+\newcommand{\mtgCR}{\mtgsymbol{symbols/CR.png}}
+\newcommand{\mtgCG}{\mtgsymbol{symbols/CG.png}}
+%    \end{macrocode}
+% As well as the symbols for hybrid mana:
+%    \begin{macrocode}
+\newcommand{\mtgWU}{\mtgsymbol{symbols/WU.png}}
+\newcommand{\mtgWB}{\mtgsymbol{symbols/WB.png}}
+\newcommand{\mtgRW}{\mtgsymbol{symbols/RW.png}}
+\newcommand{\mtgGW}{\mtgsymbol{symbols/GW.png}}
+\newcommand{\mtgUB}{\mtgsymbol{symbols/UB.png}}
+\newcommand{\mtgUR}{\mtgsymbol{symbols/UR.png}}
+\newcommand{\mtgGU}{\mtgsymbol{symbols/GU.png}}
+\newcommand{\mtgBR}{\mtgsymbol{symbols/BR.png}}
+\newcommand{\mtgBG}{\mtgsymbol{symbols/BG.png}}
+\newcommand{\mtgRG}{\mtgsymbol{symbols/RG.png}}
+%    \end{macrocode}
+% and their phyrexian counterparts:
+%    \begin{macrocode}
+\newcommand{\mtgWUP}{\mtgsymbol{symbols/WUP.png}}
+\newcommand{\mtgWBP}{\mtgsymbol{symbols/WBP.png}}
+\newcommand{\mtgUBP}{\mtgsymbol{symbols/UBP.png}}
+\newcommand{\mtgURP}{\mtgsymbol{symbols/URP.png}}
+\newcommand{\mtgBRP}{\mtgsymbol{symbols/BRP.png}}
+\newcommand{\mtgBGP}{\mtgsymbol{symbols/BGP.png}}
+\newcommand{\mtgRWP}{\mtgsymbol{symbols/RWP.png}}
+\newcommand{\mtgRGP}{\mtgsymbol{symbols/RGP.png}}
+\newcommand{\mtgGWP}{\mtgsymbol{symbols/GWP.png}}
+\newcommand{\mtgGUP}{\mtgsymbol{symbols/GUP.png}}
+%    \end{macrocode}
+% Finally, we have a single command for the snow mana symbol:
+%    \begin{macrocode}
+\newcommand{\mtgS}{\mtgsymbol{symbols/S.png}}
+\newcommand{\mtgSnow}{\mtgS}
 %    \end{macrocode}
 % We continue by defining the commands for generic mana costs from 1 to 20.
 %    \begin{macrocode}
@@ -39,11 +102,12 @@
 % This allows us to check the primitive for numbers 0-20 and the string for X.
 %    \begin{macrocode}
 	if type(input_prim) == "number" and 0 <= input_prim and input_prim <= 20 then
-		tex.sprint("\\includegraphics[height=\\mtgsymbolheight]{symbols/", input_prim, "}");
+		tex.sprint("\\mtgsymbol{symbols/", input_prim, "}");
 	elseif input == "X" then
-		tex.sprint("\\includegraphics[height=\\mtgsymbolheight]{symbols/X.png}")
+		tex.sprint("\\mtgsymbol{symbols/X.png}")
 	else
 		tex.sprint("(\\texttt{", input, "})")
 	end 
 }}
 %    \end{macrocode}
+% 

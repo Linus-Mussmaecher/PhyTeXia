@@ -1,11 +1,49 @@
 \documentclass[a4paper]{scrartcl}
 \usepackage{phytexia}
+\usepackage{floatrow}
 
 \begin{document}
+
+	\section*{Tests -- Symbols}
 	The five colors of mana in Magic are \mtgwhite, \mtgblue, \mtgblack, \mtgred\ and \mtggreen .
 
 	In costs, there is also generic mana, such as \mtggeneric{1}, \mtggeneric{20} or \mtggeneric{X}.
 	There is no symbol for \mtggeneric{Y}.
 
 	The cost of the card \emph{Supreme Verdict} is \mtggeneric{2}\mtgwhite\mtgblue .
+
+	Each man cost also has Phyrexian equivalent, which can be paid with either 1 mana of the appropriate color or 2 life, e.g. \mtgUP{} can be paid with either \mtgU{} or 2 life.
+	These symbols are \mtgWP, \mtgUP, \mtgBP, \mtgRP{} and \mtgGP.
+
+	Similar to Phyrexian mana, so called \emph{2brid mana} can be paid with either 1 mana of a specific color or 2 mana of any color.
+	The respective symbols for 2brid mana are \mtgTwoW, \mtgTwoU, \mtgTwoB, \mtgTwoR{} and \mtgTwoG.
+
+	Lastly, one card in Magic (namely \emph{Ulalek, Fused Atrocity}) uses a special form of hybrid mana that can be paid with either mana of a specific color or colorless mana.
+	Ulalek uses the symbols \mtgCW, \mtgCU, \mtgCB, \mtgCR{} and \mtgCG.
+
+	Finally, we have the most basic form of hybrid mana that can be paid with one of two specific colors.
+	These were introduced on the plane of Ravnica and are often associated with their guilds.
+	They also each exist in a phyrexian variant.
+	\begin{table}[h]
+		\begin{tabular}{c c c}
+			\textbf{Guild} & \textbf{Hybrid Mana Symbol} & \textbf{Phyrexian Hybrid Mana Symbol}\\\hline
+			Azorius  & \mtgWU & \mtgWUP \\
+			Orzhov   & \mtgWB & \mtgWBP \\
+			Dimir    & \mtgUB & \mtgUBP \\
+			Izzet    & \mtgUR & \mtgURP \\
+			Rakdos   & \mtgBR & \mtgBRP \\
+			Golgari  & \mtgBG & \mtgBGP \\
+			Boros    & \mtgRW & \mtgRWP \\
+			Gruul    & \mtgRG & \mtgRGP \\
+			Selesnya & \mtgGW & \mtgGWP \\
+			Simic    & \mtgGU & \mtgGUP 
+		\end{tabular}
+		\caption{The guilds of Ravnica and their associated hybrid mana symbols.}
+	\end{table}
+
+	Lastly, there is also snow mana (\mtgS), which is mana of any color that was produced by a snow source.
+	\mtgSnow{} mostly appears in costs of abilities instead of cards.
+
+	Notice that the size of symbols changes with the surrounding font size:
+	\section{The Experiments of the \mtgUR}
 \end{document}
