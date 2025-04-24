@@ -46,4 +46,20 @@
 
 	Notice that the size of symbols changes with the surrounding font size:
 	\section{The Experiments of the \mtgUR}
+
+	Next, we use the \texttt{\textbackslash mtgcost}-Command to display the mana costs of some cards.
+	\begin{table}[h]
+		\begin{tabular}{c c}
+			\textbf{Card}          & \textbf{Cost}                 \\
+			Surpeme Verdict        & \mtgcost{{2}{U}W}             \\
+			Rakshasa's Bargain     & \mtgcost{{2/B}{2/U}{2/G}}     \\
+			Prismari Pledgemage    & \mtgcost{{U/R}{U/R}}          \\
+			Gitaxian Probe         & \mtgcost{U/P}                 \\
+			Dismemember            & \mtgcost{1B/PB/P}                 \\
+			Ulalek, Fused Atrocity & \mtgcost{C/W{C/U}C/B{C/R}C/G} \\
+			Nahiri                 & \mtgcost{{1}{R}{R/W/P}{W}}    \\
+			Sphinx's Revelation    & \mtgcost{XUU}                 \\
+			Blinkmoth Infusion     & \mtgcost{20UU} 
+       \end{tabular}
+	\end{table}
 \end{document}

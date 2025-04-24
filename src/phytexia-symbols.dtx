@@ -4,12 +4,12 @@
 % First, we define a common height for all symbols to have using fontspec.
 % The symbol scale is later multiplied with the height of an X in the current font size and allows the user to scale symbols throughout the text.
 %    \begin{macrocode}
-\newcommand{\mtgsymbolscale}{1}
+\newcommand{\mtgsymbolscale}{1.1}
 \newlength{\mtgsymbolheight}{}
 %    \end{macrocode}
 % Define a helper function for including an image of the appropriate size
 %    \begin{macrocode}
-\newcommand{\mtgsymbol}[1]{\settoheight{\mtgsymbolheight}{X}\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}}
+\newcommand{\mtgsymbol}[1]{\settoheight{\mtgsymbolheight}{X}\hspace{0.2\mtgsymbolheight}\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}}
 %    \end{macrocode}
 %
 % \subsection{Basic Mana Symbols}
@@ -111,3 +111,61 @@
 }}
 %    \end{macrocode}
 % 
+% \subsection{The Mana Cost Command}
+% Lastly, we define the command mtgcost which takes a string in the form of TODO and transforms it into the appropriate sequence of mana cost icons.
+%    \begin{macrocode}
+\newcommand{\mtgcost}[1]{\luaexec{
+	local input	= "#1";
+	input = input:gsub("W"                    ,"white")
+	input = input:gsub("U"                    ,"blue")
+	input = input:gsub("B"                    ,"black")
+	input = input:gsub("R"                    ,"red")
+	input = input:gsub("G"                    ,"green")
+	input = input:gsub("C"                    ,"colorless")
+	input = input:gsub("P"                    ,"phyrexian")
+	input = input:gsub("2/white"              ,"\\mtgTwoW")
+	input = input:gsub("2/blue"               ,"\\mtgTwoU")
+	input = input:gsub("2/black"              ,"\\mtgTwoB")
+	input = input:gsub("2/red"                ,"\\mtgTwoR")
+	input = input:gsub("2/green"              ,"\\mtgTwoG")
+	input = input:gsub("white/blue/phyrexian" ,"\\mtgWUP")
+	input = input:gsub("white/black/phyrexian","\\mtgWBP")
+	input = input:gsub("red/white/phyrexian"  ,"\\mtgRWP")
+	input = input:gsub("green/white/phyrexian","\\mtgGWP")
+	input = input:gsub("blue/black/phyrexian" ,"\\mtgUBP")
+	input = input:gsub("blue/red/phyrexian"   ,"\\mtgURP")
+	input = input:gsub("green/blue/phyrexian" ,"\\mtgGUP")
+	input = input:gsub("black/red/phyrexian"  ,"\\mtgBRP")
+	input = input:gsub("black/green/phyrexian","\\mtgBGP")
+	input = input:gsub("red/green/phyrexian"  ,"\\mtgRGP")
+	input = input:gsub("white/blue"           ,"\\mtgWU")
+	input = input:gsub("white/black"          ,"\\mtgWB")
+	input = input:gsub("red/white"            ,"\\mtgRW")
+	input = input:gsub("green/white"          ,"\\mtgGW")
+	input = input:gsub("blue/black"           ,"\\mtgUB")
+	input = input:gsub("blue/red"             ,"\\mtgUR")
+	input = input:gsub("green/blue"           ,"\\mtgGU")
+	input = input:gsub("black/red"            ,"\\mtgBR")
+	input = input:gsub("black/green"          ,"\\mtgBG")
+	input = input:gsub("red/green"            ,"\\mtgRG")
+	input = input:gsub("white/phyrexian"      ,"\\mtgWP")
+	input = input:gsub("blue/phyrexian"       ,"\\mtgUP")
+	input = input:gsub("black/phyrexian"      ,"\\mtgBP")
+	input = input:gsub("red/phyrexian"        ,"\\mtgRP")
+	input = input:gsub("green/phyrexian"      ,"\\mtgGP")
+	input = input:gsub("colorless/white"      ,"\\mtgCW")
+	input = input:gsub("colorless/blue"       ,"\\mtgCU")
+	input = input:gsub("colorless/black"      ,"\\mtgCB")
+	input = input:gsub("colorless/red"        ,"\\mtgCR")
+	input = input:gsub("colorless/green"      ,"\\mtgCG")
+	input = input:gsub("white"                ,"\\mtgW")
+	input = input:gsub("blue"                 ,"\\mtgU")
+	input = input:gsub("black"                ,"\\mtgB")
+	input = input:gsub("red"                  ,"\\mtgR")
+	input = input:gsub("green"                ,"\\mtgG")
+	input = input:gsub("colorless"            ,"\\mtgC")
+	input = input:gsub("X"                    ,"\\mtggeneric{X}")
+	input = input:gsub("\%d+"                  ,"\\mtggeneric{\%1}")
+	tex.sprint(input)
+}}
+%    \end{macrocode}
