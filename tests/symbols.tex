@@ -5,6 +5,8 @@
 \begin{document}
 
 	\section*{Tests -- Symbols}
+
+	\subsection*{Mana Symbols -- such as \mtgUR}
 	The five colors of mana in Magic are \mtgwhite, \mtgblue, \mtgblack, \mtgred\ and \mtggreen .
 
 	In costs, there is also generic mana, such as \mtggeneric{1}, \mtggeneric{20} or \mtggeneric{X}.
@@ -44,8 +46,9 @@
 	Lastly, there is also snow mana (\mtgS), which is mana of any color that was produced by a snow source.
 	\mtgSnow{} mostly appears in costs of abilities instead of cards.
 
-	Notice that the size of symbols changes with the surrounding font size:
-	\section{The Experiments of the \mtgUR}
+	Notice that the size of symbols changes with the surrounding font size, as can be seen in the subsection title.
+
+	\subsection*{The Cost Command}
 
 	Next, we use the \texttt{\textbackslash mtgcost}-Command to display the mana costs of some cards.
 	\begin{table}[h]
@@ -59,7 +62,21 @@
 			Ulalek, Fused Atrocity & \mtgcost{C/W{C/U}C/B{C/R}C/G} \\
 			Nahiri                 & \mtgcost{{1}{R}{R/W/P}{W}}    \\
 			Sphinx's Revelation    & \mtgcost{XUU}                 \\
-			Blinkmoth Infusion     & \mtgcost{20UU} 
+			Blinkmoth Infusion     & \mtgcost{12UU} 
        \end{tabular}
 	\end{table}
+
+	\subsection*{Other Costs -- \mtgPaw{} and more}
+
+	In addition to mana costs, players may also be required to tap or untap permanents as part of as a cost, as indicated by the \mtgTap{} and \mtgUntap{} symbols.
+	\mtgT{} is a lot more common than \mtgQ.
+
+	As an additional resource, \mtgEnergy{} was introduced in Kaladesh.
+	Players put \mtgE{} counters on themselves as a resource that lasts between turns and may be generated and spent by different cards.
+	The \mtgTicket{} symbol from Unfinity works similar, but appears only in Un-sets.
+
+	Lastly, Bloomburrow introduced the \mtgPaw{} symbol, which does not represent a resource that can be spent on different card.
+	Instead, the five season cards that use them are each allocatd a budget of five \mtgPawprint{} that may be spent on three different modes of different costs.
 \end{document}
+
+
