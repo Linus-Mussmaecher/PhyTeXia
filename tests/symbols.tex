@@ -28,7 +28,9 @@
 	They also each exist in a phyrexian variant.
 	\begin{table}[h]
 		\begin{tabular}{c c c}
-			\textbf{Guild} & \textbf{Hybrid Mana Symbol} & \textbf{Phyrexian Hybrid Mana Symbol}\\\hline
+			\hline
+			\textbf{Guild} & \textbf{Hybrid Mana Symbol} & \textbf{Phyrexian Hybrid Mana Symbol}\\
+			\hline
 			Azorius  & \mtgWU & \mtgWUP \\
 			Orzhov   & \mtgWB & \mtgWBP \\
 			Dimir    & \mtgUB & \mtgUBP \\
@@ -38,7 +40,8 @@
 			Boros    & \mtgRW & \mtgRWP \\
 			Gruul    & \mtgRG & \mtgRGP \\
 			Selesnya & \mtgGW & \mtgGWP \\
-			Simic    & \mtgGU & \mtgGUP 
+			Simic    & \mtgGU & \mtgGUP \\
+			\hline
 		\end{tabular}
 		\caption{The guilds of Ravnica and their associated hybrid mana symbols.}
 	\end{table}
@@ -52,17 +55,20 @@
 
 	Next, we use the \texttt{\textbackslash mtgcost}-Command to display the mana costs of some cards.
 	\begin{table}[h]
-		\begin{tabular}{c c}
+		\begin{tabular}{l r}
+			\hline
 			\textbf{Card}          & \textbf{Cost}                 \\
+			\hline
 			Surpeme Verdict        & \mtgcost{{2}{U}W}             \\
 			Rakshasa's Bargain     & \mtgcost{{2/B}{2/U}{2/G}}     \\
 			Prismari Pledgemage    & \mtgcost{{U/R}{U/R}}          \\
 			Gitaxian Probe         & \mtgcost{U/P}                 \\
-			Dismemember            & \mtgcost{1B/PB/P}                 \\
+			Dismemember            & \mtgcost{1B/PB/P}             \\
 			Ulalek, Fused Atrocity & \mtgcost{C/W{C/U}C/B{C/R}C/G} \\
 			Nahiri                 & \mtgcost{{1}{R}{R/W/P}{W}}    \\
 			Sphinx's Revelation    & \mtgcost{XUU}                 \\
-			Blinkmoth Infusion     & \mtgcost{12UU} 
+			Blinkmoth Infusion     & \mtgcost{12UU}                \\
+			\hline
        \end{tabular}
 	\end{table}
 
@@ -77,6 +83,28 @@
 
 	Lastly, Bloomburrow introduced the \mtgPaw{} symbol, which does not represent a resource that can be spent on different card.
 	Instead, the five season cards that use them are each allocatd a budget of five \mtgPawprint{} that may be spent on three different modes of different costs.
+
+	\subsection*{Type symbols}
+
+	In the set Future Sight, Magic introduced symbols to represent its card types.
+	These are:
+	\begin{table}[h]
+		\begin{tabular}{l c}
+			\hline
+			\textbf{Type} & \textbf{Symbol} \\
+			\hline
+			Creature & \mtgTypeCreature \\
+			Sorcery & \mtgTypeSorcery \\
+			Instant & \mtgTypeInstant \\
+			Enchantment & \mtgTypeEnchantment \\
+			Artifact & \mtgTypeArtifact \\
+			Planeswalker & \mtgTypePlaneswalker \\
+			Battle & \mtgTypeBattle \\
+			Multi-Type Card & \mtgTypeMulti \\
+			\hline
+		\end{tabular}
+	\end{table}
+
 \end{document}
 
 
