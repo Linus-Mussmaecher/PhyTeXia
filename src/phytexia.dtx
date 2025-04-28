@@ -25,13 +25,23 @@
 %<*driver>
 \documentclass{ltxdoc}
 
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
-\usepackage{phytexia}
 \usepackage{xcolor}
+\definecolor{linkblue}{RGB}{58, 103, 181}
 \usepackage{gitinfo2}
-\usepackage[linktoc=all]{hyperref}
+\usepackage[
+	linktoc=all,
+	colorlinks=true,
+	linkcolor=black,
+	urlcolor=linkblue,
+]{hyperref}
 \usepackage{ifdraft}
+\usepackage{lmodern}
+\usepackage{booktabs}
+
+\usepackage{phytexia}
 
 \EnableCrossrefs
 
@@ -51,22 +61,51 @@
 %
 % \GetFileInfo{phytexia.sty}
 %
-% \title{PhyTeXia -- A Magic: The Gathering Package for \LaTeX}
-% \author{ChairX \\
-% \ifdraft{Last changes by \gitAuthorName{} on \gitAuthorDate \\ }
-% \ifdraft{Git revision of PhyTeXia:}
-% \ifdraft{\texttt{\gitAbbrevHash{}} {\gitReferences{}} \\ }
-% \ifdraft{}
-% Version \fileversion{} (\filedate) \\
-% \texttt{linus.mussmaecher@gmail.com}}
+% \title{PhyTeXia \\ A Magic: The Gathering Package for \LaTeX}
+% \author{%
+% Linus Mußmächer \\
+% \texttt{linus.mussmaecher@gmail.com} \\
+% Version \fileversion{} (\filedate) 
+% }
 %
 % \maketitle
 %
+% \vfill
+%
 % \begin{abstract}
-% TODO
+% PhyTeXia is a package for LuaLaTeX that empowers users to write guides, papers and other documents about the trading card game Magic: The Gathering produced by Wizards of the Coast by providing macros that allow the input of game-related symbols as well as decks lists and card images.
+%
+% Card images are provided by the API of the \emph{Scryfall} search engine available at \url{https://scryfall.com}.
+%  Portions of PhyTeXia are unofficial Fan Content permitted under the Wizards of the Coast Fan Content Policy.
+% The literal and graphical information presented about Magic: The Gathering, including card images and mana symbols, is copyright Wizards of the Coast, LLC.
+% PhyTeXIa is not produced by or endorsed by Wizards of the Coast.
 % \end{abstract}
 %
+% \vfill
+% 
+% \begin{center}
+% \begin{tabular}{l l}
+% \toprule
+% \multicolumn{2}{c}{\textbf{Git Information}}
+% \tabularnewline\midrule
+% Last Changes &
+% \gitAuthorDate
+% \tabularnewline
+% Last Author & 
+% \gitAuthorName
+% \tabularnewline
+% Revision &
+% \gitAbbrevHash
+% \tabularnewline
+% \bottomrule
+% \end{tabular}
+% \end{center}
+%
+% \clearpage
+%
 % \tableofcontents
+%
+% \clearpage
 %
 % \section{Introduction}
 %
@@ -108,6 +147,7 @@
 \RequirePackage{graphicx}
 \RequirePackage{luacode}
 %    \end{macrocode}
+% \StopEventually{}
 %
 % \section{Cards}
 % \input{phytexia-cards.dtx}

@@ -9,22 +9,24 @@
 %    \end{macrocode}
 % Define a helper function for including an image of the appropriate size
 %    \begin{macrocode}
-\newcommand{\mtgsymbol}[1]{\settoheight{\mtgsymbolheight}{X}\hspace{0.2\mtgsymbolheight}\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}}
+\newcommand{\mtg@symbol}[1]{%
+	\settoheight{\mtgsymbolheight}{X}%
+	\hspace{0.2\mtgsymbolheight}%
+	\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}%
+}
 %    \end{macrocode}
 %
 % \subsection{Basic Mana Symbols}
 %
 % First, we define five commands for the basic colors of mana as well as colorless mana:
-%
 %    \begin{macrocode}
-\newcommand{\mtgW}{\mtgsymbol{symbols/W.png}}
-\newcommand{\mtgU}{\mtgsymbol{symbols/U.png}}
-\newcommand{\mtgB}{\mtgsymbol{symbols/B.png}}
-\newcommand{\mtgR}{\mtgsymbol{symbols/R.png}}
-\newcommand{\mtgG}{\mtgsymbol{symbols/G.png}}
-\newcommand{\mtgC}{\mtgsymbol{symbols/C.png}}
+\newcommand{\mtgW}{\mtg@symbol{symbols/W.png}}
+\newcommand{\mtgU}{\mtg@symbol{symbols/U.png}}
+\newcommand{\mtgB}{\mtg@symbol{symbols/B.png}}
+\newcommand{\mtgR}{\mtg@symbol{symbols/R.png}}
+\newcommand{\mtgG}{\mtg@symbol{symbols/G.png}}
+\newcommand{\mtgC}{\mtg@symbol{symbols/C.png}}
 %    \end{macrocode}
-% This command will form the basis of many other commands.
 % We also define aliases based on their long forms.
 %    \begin{macrocode}
 \newcommand{\mtgwhite}{\mtgW}
@@ -34,62 +36,63 @@
 \newcommand{\mtggreen}{\mtgG}
 \newcommand{\mtgcolorless}{\mtgC}
 %    \end{macrocode}
-% Next, we define the Phyrexian mana symbols:
+% What follows is a long collection of very similar macros for all the mana symbols in MTG.
+% \paragraph{Phyrexian Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgWP}{\mtgsymbol{symbols/WP.png}}
-\newcommand{\mtgUP}{\mtgsymbol{symbols/UP.png}}
-\newcommand{\mtgBP}{\mtgsymbol{symbols/BP.png}}
-\newcommand{\mtgRP}{\mtgsymbol{symbols/RP.png}}
-\newcommand{\mtgGP}{\mtgsymbol{symbols/GP.png}}
+\newcommand{\mtgWP}{\mtg@symbol{symbols/WP.png}}
+\newcommand{\mtgUP}{\mtg@symbol{symbols/UP.png}}
+\newcommand{\mtgBP}{\mtg@symbol{symbols/BP.png}}
+\newcommand{\mtgRP}{\mtg@symbol{symbols/RP.png}}
+\newcommand{\mtgGP}{\mtg@symbol{symbols/GP.png}}
 %    \end{macrocode}
-% as well as 2brid mana
+% \paragraph{2brid Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgTwoW}{\mtgsymbol{symbols/2W.png}}
-\newcommand{\mtgTwoU}{\mtgsymbol{symbols/2U.png}}
-\newcommand{\mtgTwoB}{\mtgsymbol{symbols/2B.png}}
-\newcommand{\mtgTwoR}{\mtgsymbol{symbols/2R.png}}
-\newcommand{\mtgTwoG}{\mtgsymbol{symbols/2G.png}}
+\newcommand{\mtgTwoW}{\mtg@symbol{symbols/2W.png}}
+\newcommand{\mtgTwoU}{\mtg@symbol{symbols/2U.png}}
+\newcommand{\mtgTwoB}{\mtg@symbol{symbols/2B.png}}
+\newcommand{\mtgTwoR}{\mtg@symbol{symbols/2R.png}}
+\newcommand{\mtgTwoG}{\mtg@symbol{symbols/2G.png}}
 %    \end{macrocode}
-% and colorless hybrid mana
+% \paragraph{2brid Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgCW}{\mtgsymbol{symbols/CW.png}}
-\newcommand{\mtgCU}{\mtgsymbol{symbols/CU.png}}
-\newcommand{\mtgCB}{\mtgsymbol{symbols/CB.png}}
-\newcommand{\mtgCR}{\mtgsymbol{symbols/CR.png}}
-\newcommand{\mtgCG}{\mtgsymbol{symbols/CG.png}}
+\newcommand{\mtgCW}{\mtg@symbol{symbols/CW.png}}
+\newcommand{\mtgCU}{\mtg@symbol{symbols/CU.png}}
+\newcommand{\mtgCB}{\mtg@symbol{symbols/CB.png}}
+\newcommand{\mtgCR}{\mtg@symbol{symbols/CR.png}}
+\newcommand{\mtgCG}{\mtg@symbol{symbols/CG.png}}
 %    \end{macrocode}
-% As well as the symbols for hybrid mana:
+% \paragraph{Hybrid Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgWU}{\mtgsymbol{symbols/WU.png}}
-\newcommand{\mtgWB}{\mtgsymbol{symbols/WB.png}}
-\newcommand{\mtgRW}{\mtgsymbol{symbols/RW.png}}
-\newcommand{\mtgGW}{\mtgsymbol{symbols/GW.png}}
-\newcommand{\mtgUB}{\mtgsymbol{symbols/UB.png}}
-\newcommand{\mtgUR}{\mtgsymbol{symbols/UR.png}}
-\newcommand{\mtgGU}{\mtgsymbol{symbols/GU.png}}
-\newcommand{\mtgBR}{\mtgsymbol{symbols/BR.png}}
-\newcommand{\mtgBG}{\mtgsymbol{symbols/BG.png}}
-\newcommand{\mtgRG}{\mtgsymbol{symbols/RG.png}}
+\newcommand{\mtgWU}{\mtg@symbol{symbols/WU.png}}
+\newcommand{\mtgWB}{\mtg@symbol{symbols/WB.png}}
+\newcommand{\mtgRW}{\mtg@symbol{symbols/RW.png}}
+\newcommand{\mtgGW}{\mtg@symbol{symbols/GW.png}}
+\newcommand{\mtgUB}{\mtg@symbol{symbols/UB.png}}
+\newcommand{\mtgUR}{\mtg@symbol{symbols/UR.png}}
+\newcommand{\mtgGU}{\mtg@symbol{symbols/GU.png}}
+\newcommand{\mtgBR}{\mtg@symbol{symbols/BR.png}}
+\newcommand{\mtgBG}{\mtg@symbol{symbols/BG.png}}
+\newcommand{\mtgRG}{\mtg@symbol{symbols/RG.png}}
 %    \end{macrocode}
-% and their phyrexian counterparts:
+% \paragraph{Phyrexian Hybrid Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgWUP}{\mtgsymbol{symbols/WUP.png}}
-\newcommand{\mtgWBP}{\mtgsymbol{symbols/WBP.png}}
-\newcommand{\mtgUBP}{\mtgsymbol{symbols/UBP.png}}
-\newcommand{\mtgURP}{\mtgsymbol{symbols/URP.png}}
-\newcommand{\mtgBRP}{\mtgsymbol{symbols/BRP.png}}
-\newcommand{\mtgBGP}{\mtgsymbol{symbols/BGP.png}}
-\newcommand{\mtgRWP}{\mtgsymbol{symbols/RWP.png}}
-\newcommand{\mtgRGP}{\mtgsymbol{symbols/RGP.png}}
-\newcommand{\mtgGWP}{\mtgsymbol{symbols/GWP.png}}
-\newcommand{\mtgGUP}{\mtgsymbol{symbols/GUP.png}}
+\newcommand{\mtgWUP}{\mtg@symbol{symbols/WUP.png}}
+\newcommand{\mtgWBP}{\mtg@symbol{symbols/WBP.png}}
+\newcommand{\mtgUBP}{\mtg@symbol{symbols/UBP.png}}
+\newcommand{\mtgURP}{\mtg@symbol{symbols/URP.png}}
+\newcommand{\mtgBRP}{\mtg@symbol{symbols/BRP.png}}
+\newcommand{\mtgBGP}{\mtg@symbol{symbols/BGP.png}}
+\newcommand{\mtgRWP}{\mtg@symbol{symbols/RWP.png}}
+\newcommand{\mtgRGP}{\mtg@symbol{symbols/RGP.png}}
+\newcommand{\mtgGWP}{\mtg@symbol{symbols/GWP.png}}
+\newcommand{\mtgGUP}{\mtg@symbol{symbols/GUP.png}}
 %    \end{macrocode}
-% Finally, we have a single command for the snow mana symbol:
+% \paragraph{Snow Mana:}
 %    \begin{macrocode}
-\newcommand{\mtgS}{\mtgsymbol{symbols/S.png}}
+\newcommand{\mtgS}{\mtg@symbol{symbols/S.png}}
 \newcommand{\mtgSnow}{\mtgS}
 %    \end{macrocode}
-% We continue by defining the commands for generic mana costs from 1 to 20.
+% \paragraph{Generic Mana:} The code for generic mana is a bit more complicated, as, instead of defining 20 different macros for the 20+ generic mana symbols that appear frequently in MTG, we use some Lua code to parse the input and find the correct symbol.
 %    \begin{macrocode}
 \newcommand{\mtggeneric}[1]{\directlua{
 %    \end{macrocode}
@@ -101,21 +104,39 @@
 %    \end{macrocode}
 % This allows us to check the primitive for numbers 0-20 and the string for X.
 %    \begin{macrocode}
-	if type(input_prim) == "number" and 0 <= input_prim and input_prim <= 20 then
-		tex.sprint("\\mtgsymbol{symbols/", input_prim, "}");
+	if type(input_prim) == "number"
+		and 0 <= input_prim
+		and input_prim <= 20 then
+
+		tex.sprint(
+			"\\makeatletter\\mtg@symbol{symbols/",
+			input_prim,
+			"}\\makeatother"
+		);
 	elseif input == "X" then
-		tex.sprint("\\mtgsymbol{symbols/X.png}")
+		tex.sprint(
+			"\\makeatletter\\mtg@symbol{symbols/X.png}\\makeatother"
+		)
 	else
-		tex.sprint("(\\texttt{", input, "})")
+		tex.sprint(
+			"(\\texttt{", input, "})"
+		)
 	end 
 }}
 %    \end{macrocode}
+% There is currently no support for the mana costs of Gleemax (1,000,000).
+% These and some more symbols mentioned on scryfall are in the works.
+%
+% Currently, this implementation uses |\makeatletter| and |\makeatother| to get access to the private command |\mtg@symbol|.
 % 
 % \subsection{The Mana Cost Command}
-% Lastly, we define the command mtgcost which takes a string in the form of TODO and transforms it into the appropriate sequence of mana cost icons.
+% Lastly, we define the command mtgcost which takes a string in the form of |{2}{W}{W/U}{U}| and transforms it into the appropriate sequence of mana cost icons.
 %    \begin{macrocode}
 \newcommand{\mtgcost}[1]{\luaexec{
 	local input	= "#1";
+%    \end{macrocode}
+% After putting the input in a lua variable, we begin by replacing the color shorthands with long-form words. This allows us to replace them with the commands later on, while avoiding the problem of double replacements (as these commands contain the shorthands again).
+%    \begin{macrocode}
 	input = input:gsub("W"                    ,"white")
 	input = input:gsub("U"                    ,"blue")
 	input = input:gsub("B"                    ,"black")
@@ -123,6 +144,9 @@
 	input = input:gsub("G"                    ,"green")
 	input = input:gsub("C"                    ,"colorless")
 	input = input:gsub("P"                    ,"phyrexian")
+%    \end{macrocode}
+% After that, the actual replacement can continue without problems.
+%    \begin{macrocode}
 	input = input:gsub("2/white"              ,"\\mtgTwoW")
 	input = input:gsub("2/blue"               ,"\\mtgTwoU")
 	input = input:gsub("2/black"              ,"\\mtgTwoB")
@@ -164,40 +188,62 @@
 	input = input:gsub("red"                  ,"\\mtgR")
 	input = input:gsub("green"                ,"\\mtgG")
 	input = input:gsub("colorless"            ,"\\mtgC")
+%    \end{macrocode}
+% For generic mana, we need to perform a regex match to catch all possible numbers after replacing X regularly.
+%    \begin{macrocode}
 	input = input:gsub("X"                    ,"\\mtggeneric{X}")
 	input = input:gsub("\%d+"                  ,"\\mtggeneric{\%1}")
+%    \end{macrocode}
+% Finally, we just put the replaced string back again.
+%    \begin{macrocode}
 	tex.sprint(input)
 }}
 %    \end{macrocode}
 %
 % \subsection{Non-Mana Symbols}
 % In addition to the mana symbols, we also define commands for other symbols that appear frequently in Magic rules text or costs.
-% First, the tap and untap symbols:
+% \paragraph{Tap \& Untap:}
 %    \begin{macrocode}
-\newcommand{\mtgT}{\mtgsymbol{symbols/T.png}}
-\newcommand{\mtgQ}{\mtgsymbol{symbols/Q.png}}
+\newcommand{\mtgT}{\mtg@symbol{symbols/T.png}}
+\newcommand{\mtgQ}{\mtg@symbol{symbols/Q.png}}
 \newcommand{\mtgTap}{\mtgT}
 \newcommand{\mtgUntap}{\mtgQ}
 %    \end{macrocode}
-% Then the Energy, Pawprint and Ticket symbols:
+% \paragraph{Energy, Pawprint and Ticket:}
 %    \begin{macrocode}
-\newcommand{\mtgE}{\mtgsymbol{symbols/E.png}}
+\newcommand{\mtgE}{\mtg@symbol{symbols/E.png}}
 \newcommand{\mtgEnergy}{\mtgE}
-\newcommand{\mtgPaw}{\mtgsymbol{symbols/P.png}}
+\newcommand{\mtgPaw}{\mtg@symbol{symbols/P.png}}
 \newcommand{\mtgPawprint}{\mtgPaw}
-\newcommand{\mtgTicket}{\mtgsymbol{symbols/Q.png}}
+\newcommand{\mtgTicket}{\mtg@symbol{symbols/Q.png}}
 %    \end{macrocode}
 % 
 % \subsection{Type Symbols}
 % In Future Sight, Magic introduced symbols for their (then-used) card types.
 % We replicate these here as commands, mostly for their use in decklists.
 %    \begin{macrocode}
-\newcommand{\mtgTypeCreature}{\mtgsymbol{symbols/fs_creature_symbol.png}}
-\newcommand{\mtgTypeSorcery}{\mtgsymbol{symbols/fs_sorcery_symbol.png}}
-\newcommand{\mtgTypeInstant}{\mtgsymbol{symbols/fs_instant_symbol.png}}
-\newcommand{\mtgTypeEnchantment}{\mtgsymbol{symbols/fs_enchantment_symbol.png}}
-\newcommand{\mtgTypeArtifact}{\mtgsymbol{symbols/fs_artifact_symbol.png}}
-\newcommand{\mtgTypePlaneswalker}{\mtgsymbol{symbols/fs_planeswalker_symbol.png}}
-\newcommand{\mtgTypeBattle}{\mtgsymbol{symbols/fs_battle_symbol.png}}
-\newcommand{\mtgTypeMulti}{\mtgsymbol{symbols/fs_multitype_symbol.png}}
+\newcommand{\mtgTypeCreature}{%
+	\mtg@symbol{symbols/fs_creature_symbol.png}%
+}
+\newcommand{\mtgTypeSorcery}{%
+	\mtg@symbol{symbols/fs_sorcery_symbol.png}%
+}
+\newcommand{\mtgTypeInstant}{%
+	\mtg@symbol{symbols/fs_instant_symbol.png}%
+}
+\newcommand{\mtgTypeEnchantment}{%
+	\mtg@symbol{symbols/fs_enchantment_symbol.png}%
+}
+\newcommand{\mtgTypeArtifact}{%
+	\mtg@symbol{symbols/fs_artifact_symbol.png}%
+}
+\newcommand{\mtgTypePlaneswalker}{%
+	\mtg@symbol{symbols/fs_planeswalker_symbol.png}%
+}
+\newcommand{\mtgTypeBattle}{%
+	\mtg@symbol{symbols/fs_battle_symbol.png}%
+}
+\newcommand{\mtgTypeMulti}{%
+	\mtg@symbol{symbols/fs_multitype_symbol.png}%
+}
 %    \end{macrocode}
