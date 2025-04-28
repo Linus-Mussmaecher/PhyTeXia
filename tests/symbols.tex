@@ -1,6 +1,8 @@
 \documentclass[a4paper]{scrartcl}
 \usepackage{phytexia}
 \usepackage{floatrow}
+\usepackage{booktabs}
+\usepackage{hyperref}
 
 \begin{document}
 
@@ -28,9 +30,9 @@
 	They also each exist in a phyrexian variant.
 	\begin{table}[h]
 		\begin{tabular}{c c c}
-			\hline
+			\toprule
 			\textbf{Guild} & \textbf{Hybrid Mana Symbol} & \textbf{Phyrexian Hybrid Mana Symbol}\\
-			\hline
+			\midrule
 			Azorius  & \mtgWU & \mtgWUP \\
 			Orzhov   & \mtgWB & \mtgWBP \\
 			Dimir    & \mtgUB & \mtgUBP \\
@@ -41,7 +43,7 @@
 			Gruul    & \mtgRG & \mtgRGP \\
 			Selesnya & \mtgGW & \mtgGWP \\
 			Simic    & \mtgGU & \mtgGUP \\
-			\hline
+			\bottomrule
 		\end{tabular}
 		\caption{The guilds of Ravnica and their associated hybrid mana symbols.}
 	\end{table}
@@ -51,14 +53,30 @@
 
 	Notice that the size of symbols changes with the surrounding font size, as can be seen in the subsection title.
 
+	\subsection*{Other Costs -- \mtgP{} and more}
+
+	In addition to mana costs, players may also be required to tap or untap permanents as part of as a cost, as indicated by the \mtgTap{} and \mtgUntap{} symbols.
+	\mtgT{} is a lot more common than \mtgQ.
+
+	As an additional resource, \mtgEnergy{} was introduced in Kaladesh.
+	Players put \mtgE{} counters on themselves as a resource that lasts between turns and may be generated and spent by different cards.
+	The \mtgTicket{} symbol from Unfinity works similar, but appears only in Un-sets.
+
+	As a play on Energy, the card Acornelia, Fashionable Filcher uses \mtgA-counters.
+	\mtgAcorn works just like energy, but can only be created and spent by Acornelia.
+
+	Lastly, Bloomburrow introduced the \mtgP{} symbol, which does not represent a resource that can be spent on different card.
+	Instead, the five season cards that use them are each allocatd a budget of five \mtgPawprint{} that may be spent on three different modes of different costs.
+
 	\subsection*{The Cost Command}
 
-	Next, we use the \texttt{\textbackslash mtgcost}-Command to display the mana costs of some cards.
+	Next, we use the \texttt{\textbackslash mtgcost}-Command to display the mana costs of some cards and abilities.
+
 	\begin{table}[h]
 		\begin{tabular}{l r}
-			\hline
+			\toprule
 			\textbf{Card}          & \textbf{Cost}                 \\
-			\hline
+			\midrule
 			Surpeme Verdict        & \mtgcost{{2}{U}W}             \\
 			Rakshasa's Bargain     & \mtgcost{{2/B}{2/U}{2/G}}     \\
 			Prismari Pledgemage    & \mtgcost{{U/R}{U/R}}          \\
@@ -68,21 +86,28 @@
 			Nahiri                 & \mtgcost{{1}{R}{R/W/P}{W}}    \\
 			Sphinx's Revelation    & \mtgcost{XUU}                 \\
 			Blinkmoth Infusion     & \mtgcost{12UU}                \\
-			\hline
+			Gleemax                & \mtgcost{1000000}             \\
+			Nightmare              & \mtgcost{XYZRR}               \\
+			\bottomrule
        \end{tabular}
 	\end{table}
 
-	\subsection*{Other Costs -- \mtgPaw{} and more}
+	\begin{table}[h]
+		\begin{tabular}{l r}
+			\toprule
+			\textbf{Ability}       & \textbf{Cost}   \\
+			\midrule
+			Acornelia              & \mtgcost{2{B},A}    \\
+			Rage Extractor         & \mtgcost{H}     \\
+			Season of Weaving      & \mtgcost{PP}     \\
+			Mox Lotus Ability      & \mtgcost{100}   \\
+			Glarb, Calamity Augur  & \mtgcost{T}     \\
+			Knacksaw Clique        & \mtgcost{1U, Q} \\
+			Whirler Virtuoso       & \mtgcost{EEE}   \\
+			\bottomrule
+       \end{tabular}
+	\end{table}
 
-	In addition to mana costs, players may also be required to tap or untap permanents as part of as a cost, as indicated by the \mtgTap{} and \mtgUntap{} symbols.
-	\mtgT{} is a lot more common than \mtgQ.
-
-	As an additional resource, \mtgEnergy{} was introduced in Kaladesh.
-	Players put \mtgE{} counters on themselves as a resource that lasts between turns and may be generated and spent by different cards.
-	The \mtgTicket{} symbol from Unfinity works similar, but appears only in Un-sets.
-
-	Lastly, Bloomburrow introduced the \mtgPaw{} symbol, which does not represent a resource that can be spent on different card.
-	Instead, the five season cards that use them are each allocatd a budget of five \mtgPawprint{} that may be spent on three different modes of different costs.
 
 	\subsection*{Type symbols}
 
