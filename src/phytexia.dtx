@@ -124,14 +124,14 @@
 % Process Options.
 %
 %    \begin{macrocode}
-\newif\if@mtgtooltips \@mtgtooltipsfalse
+\newcommand{\mtg@symbolscaledefault}{1.1}
 %    \end{macrocode}
 %
 % Define option for including tooltips (only works with Adobe Acrobat).
 %
 %    \begin{macrocode}
-\DeclareOptionX[phytexia]<mtg>{tooltips}{
-	\@mtgtooltipstrue
+\DeclareOptionX[phytexia]<mtg>{symbolscale}{
+\renewcommand{\mtg@symbolscaledefault}{#1}
 }
 %    \end{macrocode}
 %

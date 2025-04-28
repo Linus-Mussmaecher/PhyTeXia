@@ -12,15 +12,18 @@
 % First, we define a common height for all symbols to have using fontspec.
 % The symbol scale is later multiplied with the height of an X in the current font size and allows the user to scale symbols throughout the text.
 %    \begin{macrocode}
-\newcommand{\mtgsymbolscale}{1.1}
 \newlength{\mtgsymbolheight}{}
+%    \end{macrocode}
+% Helper command that generally has the value of the default scale but can be changed to temporarily alter the symbol scaling.
+%    \begin{macrocode}
+\newcommand{\mtg@symbolscale}{\mtg@symbolscaledefault}
 %    \end{macrocode}
 % Define a helper function for including an image of the appropriate size
 %    \begin{macrocode}
 \newcommand{\mtg@symbol}[1]{%
 	\settoheight{\mtgsymbolheight}{X}%
 	\hspace{0.2\mtgsymbolheight}%
-	\includegraphics[height=\mtgsymbolscale\mtgsymbolheight]{#1}%
+	\includegraphics[height=\mtg@symbolscale\mtgsymbolheight]{#1}%
 }
 %    \end{macrocode}
 %
@@ -150,9 +153,24 @@
 % 
 % \subsection{The Mana Cost Command}
 % Lastly, we define the command mtgcost which takes a string in the form of |{2}{W}{W/U}{U}| and transforms it into the appropriate sequence of mana cost icons.
+% First, we define a key-value pair for the optional argument of the command with the |xkeyval| package that, when included, changes the symbol scale temporarily.
 %    \begin{macrocode}
-\newcommand{\mtgcost}[1]{\luaexec{
-	local input	= "#1";
+\define@key{mtgcost}{scale}{%
+	\renewcommand{\mtg@symbolscale}{#1}%
+}
+%    \end{macrocode}
+% Then, we can begin to define the actual macro:
+%    \begin{macrocode}
+\newcommand{\mtgcost}[2][]{%
+%    \end{macrocode}
+% First, we process the optional argument, possibly finding the key-value pair as defined above and changing the scale.
+%    \begin{macrocode}
+\setkeys{mtgcost}{#1}%
+%    \end{macrocode}
+% Now the core part of the macro begins, which is mostly lua-based text replacement.
+%    \begin{macrocode}
+\luaexec{
+	local input	= "#2";
 %    \end{macrocode}
 % After putting the input in a lua variable, we begin by replacing the color shorthands with long-form words. This allows us to replace them with the commands later on, while avoiding the problem of double replacements (as these commands contain the shorthands again).
 %    \begin{macrocode}
@@ -163,7 +181,8 @@
 	input = input:gsub("G"                    ,"green")
 	input = input:gsub("C"                    ,"colorless")
 %    \end{macrocode}
-% In particular, the raw |P| for a phyrexian alternative cost only appears with other colors.
+% In particular, the raw |P| for a Phyrexian alternative cost only appears with other colors.
+% In this combination, |P| still means Phyrexian and not Paw.
 %    \begin{macrocode}
 	input = input:gsub("/P"                    ,"/phyrexian")
 	input = input:gsub("T"                    ,"tap")
@@ -171,12 +190,12 @@
 	input = input:gsub("E"                    ,"energy")
 	input = input:gsub("A"                    ,"acorn")
 %    \end{macrocode}
-% A P without a |/| before it however must always be a pawprint symbol.
+% A |P| without a |/| before it however must always be a pawprint symbol.
 % Confusingly, Wizards chose to have this one letter do double duty.
 %    \begin{macrocode}
 	input = input:gsub("P"                    ,"paw")
 %    \end{macrocode}
-% A P without anything used to mean this (colored or phyrexian), but that is now H.
+% A |P| used to denote Phyrexian mana of any color, but since Wizards wants to use |P| for the paw symbol, that is now represented by |H| instead.
 %    \begin{macrocode}
 	input = input:gsub("H"                    ,"cphyrexian")
 %    \end{macrocode}
@@ -240,7 +259,12 @@
 % Finally, we just put the replaced string back again.
 %    \begin{macrocode}
 	tex.sprint(input)
-}}
+}%
+%    \end{macrocode}
+% Reset the scale modifier (if it was even changed).
+%    \begin{macrocode}
+\renewcommand{\mtg@symbolscale}{\mtg@symbolscaledefault}%
+}
 %    \end{macrocode}
 %
 % \subsection{Non-Mana Symbols}
