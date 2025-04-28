@@ -1,6 +1,14 @@
 % \iffalse meta-comment
 % This file contains the implementation for macros that display symbols relevant in MTG.
 % \fi
+% 
+% The symbols supported by PhyTeXia are all the ones from \url{https://scryfall.com/docs/api/colors}, with the exceptions of:
+% \begin{itemize}
+% 	\item The Planeswalker and Chaos symbols.
+% 	\item Half mana of any type.
+% 	\item Infinite mana.
+% 	\item The legendary mana symbol and the land drop symbol.
+% \end{itemize}
 % First, we define a common height for all symbols to have using fontspec.
 % The symbol scale is later multiplied with the height of an X in the current font size and allows the user to scale symbols throughout the text.
 %    \begin{macrocode}
@@ -44,6 +52,8 @@
 \newcommand{\mtgBP}{\mtg@symbol{symbols/BP.png}}
 \newcommand{\mtgRP}{\mtg@symbol{symbols/RP.png}}
 \newcommand{\mtgGP}{\mtg@symbol{symbols/GP.png}}
+\newcommand{\mtgH} {\mtg@symbol{symbols/H.png}}
+\newcommand{\mtgCP}{\mtg@symbol{symbols/CP.png}}
 %    \end{macrocode}
 % \paragraph{2brid Mana:}
 %    \begin{macrocode}
@@ -105,22 +115,31 @@
 % This allows us to check the primitive for numbers 0-20 and the string for X.
 %    \begin{macrocode}
 	if type(input_prim) == "number"
-		and 0 <= input_prim
-		and input_prim <= 20 then
+		and ((0 <= input_prim
+		and input_prim <= 20)
+		or input_prim == 100
+		or input_prim == 1000000)
+		then
 
 		tex.sprint(
 			"\\makeatletter\\mtg@symbol{symbols/",
 			input_prim,
 			"}\\makeatother"
 		);
-	elseif input == "X" then
+	elseif input == "X"
+		or input == "Y"
+		or input == "Z"
+		then
+
 		tex.sprint(
-			"\\makeatletter\\mtg@symbol{symbols/X.png}\\makeatother"
-		)
+			"\\makeatletter\\mtg@symbol{symbols/",
+			input,
+			"}\\makeatother"
+		);
 	else
 		tex.sprint(
 			"(\\texttt{", input, "})"
-		)
+		);
 	end 
 }}
 %    \end{macrocode}
@@ -143,7 +162,23 @@
 	input = input:gsub("R"                    ,"red")
 	input = input:gsub("G"                    ,"green")
 	input = input:gsub("C"                    ,"colorless")
-	input = input:gsub("P"                    ,"phyrexian")
+%    \end{macrocode}
+% In particular, the raw |P| for a phyrexian alternative cost only appears with other colors.
+%    \begin{macrocode}
+	input = input:gsub("/P"                    ,"/phyrexian")
+	input = input:gsub("T"                    ,"tap")
+	input = input:gsub("Q"                    ,"untap")
+	input = input:gsub("E"                    ,"energy")
+	input = input:gsub("A"                    ,"acorn")
+%    \end{macrocode}
+% A P without a |/| before it however must always be a pawprint symbol.
+% Confusingly, Wizards chose to have this one letter do double duty.
+%    \begin{macrocode}
+	input = input:gsub("P"                    ,"paw")
+%    \end{macrocode}
+% A P without anything used to mean this (colored or phyrexian), but that is now H.
+%    \begin{macrocode}
+	input = input:gsub("H"                    ,"cphyrexian")
 %    \end{macrocode}
 % After that, the actual replacement can continue without problems.
 %    \begin{macrocode}
@@ -188,11 +223,19 @@
 	input = input:gsub("red"                  ,"\\mtgR")
 	input = input:gsub("green"                ,"\\mtgG")
 	input = input:gsub("colorless"            ,"\\mtgC")
+	input = input:gsub("untap"                ,"\\mtgQ")
+	input = input:gsub("tap"                  ,"\\mtgT")
+	input = input:gsub("energy"               ,"\\mtgE")
+	input = input:gsub("acorn"                ,"\\mtgA")
+	input = input:gsub("paw"                  ,"\\mtgP")
+	input = input:gsub("cphyrexian"           ,"\\mtgH")
 %    \end{macrocode}
 % For generic mana, we need to perform a regex match to catch all possible numbers after replacing X regularly.
 %    \begin{macrocode}
 	input = input:gsub("X"                    ,"\\mtggeneric{X}")
-	input = input:gsub("\%d+"                  ,"\\mtggeneric{\%1}")
+	input = input:gsub("Y"                    ,"\\mtggeneric{Y}")
+	input = input:gsub("Z"                    ,"\\mtggeneric{Z}")
+	input = input:gsub("\%d+"                 ,"\\mtggeneric{\%1}")
 %    \end{macrocode}
 % Finally, we just put the replaced string back again.
 %    \begin{macrocode}
@@ -209,13 +252,15 @@
 \newcommand{\mtgTap}{\mtgT}
 \newcommand{\mtgUntap}{\mtgQ}
 %    \end{macrocode}
-% \paragraph{Energy, Pawprint and Ticket:}
+% \paragraph{Energy, Pawprint, Acorn and Ticket:}
 %    \begin{macrocode}
 \newcommand{\mtgE}{\mtg@symbol{symbols/E.png}}
 \newcommand{\mtgEnergy}{\mtgE}
-\newcommand{\mtgPaw}{\mtg@symbol{symbols/P.png}}
-\newcommand{\mtgPawprint}{\mtgPaw}
-\newcommand{\mtgTicket}{\mtg@symbol{symbols/Q.png}}
+\newcommand{\mtgP}{\mtg@symbol{symbols/P.png}}
+\newcommand{\mtgPawprint}{\mtgP}
+\newcommand{\mtgA}{\mtg@symbol{symbols/A.png}}
+\newcommand{\mtgAcorn}{\mtgE}
+\newcommand{\mtgTicket}{\mtg@symbol{symbols/Ticket.png}}
 %    \end{macrocode}
 % 
 % \subsection{Type Symbols}
