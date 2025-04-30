@@ -145,6 +145,16 @@
 %
 %    \begin{macrocode}
 \RequirePackage{graphicx}
+\RequirePackage{ifluatex}
+%    \end{macrocode}
+% Check if the user is using LuaTeX, throw an error otherwise.
+%    \begin{macrocode}
+\ifluatex\else
+\PackageError{phytexia}{LuaTeX is required for this package. Aborting.}{%
+This package can only be used with the LuaTeX engine\MessageBreak
+(command ‘lualatex’). Package loading has been stopped\MessageBreak
+to prevent additional errors.}
+\fi
 \RequirePackage{luacode}
 %    \end{macrocode}
 % \StopEventually{}
