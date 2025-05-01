@@ -155,7 +155,7 @@
 % Lastly, we define the command mtgcost which takes a string in the form of |{2}{W}{W/U}{U}| and transforms it into the appropriate sequence of mana cost icons.
 % First, we define a key-value pair for the optional argument of the command with the |xkeyval| package that, when included, changes the symbol scale temporarily.
 %    \begin{macrocode}
-\define@key{mtgcost}{scale}{%
+\define@key[mtg]{mtgcost}{scale}{%
 	\renewcommand{\mtg@symbolscale}{#1}%
 }
 %    \end{macrocode}
@@ -184,7 +184,7 @@
 % In particular, the raw |P| for a Phyrexian alternative cost only appears with other colors.
 % In this combination, |P| still means Phyrexian and not Paw.
 %    \begin{macrocode}
-	input = input:gsub("/P"                    ,"/phyrexian")
+	input = input:gsub("/P"                   ,"/phyrexian")
 	input = input:gsub("T"                    ,"tap")
 	input = input:gsub("Q"                    ,"untap")
 	input = input:gsub("E"                    ,"energy")
