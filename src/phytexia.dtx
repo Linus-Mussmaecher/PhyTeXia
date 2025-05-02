@@ -26,8 +26,6 @@
 \documentclass{ltxdoc}
 
 
-\usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
 \usepackage{xcolor}
 \definecolor{linkblue}{RGB}{58, 103, 181}
 \usepackage{gitinfo2}
@@ -149,15 +147,14 @@
 %    \end{macrocode}
 % Check if the user is using LuaTeX, throw an error otherwise.
 %    \begin{macrocode}
-\ifluatex\else
-\PackageError{phytexia}{LuaTeX is required for this package. Aborting.}{%
-This package can only be used with the LuaTeX engine\MessageBreak
-(command ‘lualatex’). Package loading has been stopped\MessageBreak
-to prevent additional errors.}
-\fi
 \RequirePackage{luacode}
 %    \end{macrocode}
 % \StopEventually{}
+% 
+% Include the file providing the lua functions.
+%    \begin{macrocode}
+\directlua{dofile("phytexia.lua")}
+%    \end{macrocode}
 %
 % \section{Cards}
 % \input{phytexia-cards.dtx}
