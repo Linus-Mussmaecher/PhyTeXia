@@ -107,44 +107,7 @@
 %    \end{macrocode}
 % \paragraph{Generic Mana:} The code for generic mana is a bit more complicated, as, instead of defining 20 different macros for the 20+ generic mana symbols that appear frequently in MTG, we use some Lua code to parse the input and find the correct symbol.
 %    \begin{macrocode}
-\newcommand{\mtggeneric}[1]{\directlua{
-%    \end{macrocode}
-% We parse the input into Lua-Variables in two ways:
-% As a string, and as a primitive.
-%    \begin{macrocode}
-	local input = "#1";
-	local input_prim = #1;
-%    \end{macrocode}
-% This allows us to check the primitive for numbers 0-20 and the string for X.
-%    \begin{macrocode}
-	if type(input_prim) == "number"
-		and ((0 <= input_prim
-		and input_prim <= 20)
-		or input_prim == 100
-		or input_prim == 1000000)
-		then
-
-		tex.sprint(
-			"\\makeatletter\\mtg@symbol{symbols/",
-			input_prim,
-			"}\\makeatother"
-		);
-	elseif input == "X"
-		or input == "Y"
-		or input == "Z"
-		then
-
-		tex.sprint(
-			"\\makeatletter\\mtg@symbol{symbols/",
-			input,
-			"}\\makeatother"
-		);
-	else
-		tex.sprint(
-			"(\\texttt{", input, "})"
-		);
-	end 
-}}
+\newcommand{\mtggeneric}[1]{\directlua{mtggeneric("#1")}}
 %    \end{macrocode}
 % There is currently no support for the mana costs of Gleemax (1,000,000).
 % These and some more symbols mentioned on scryfall are in the works.
@@ -163,106 +126,16 @@
 %    \begin{macrocode}
 \newcommand{\mtgcost}[2][]{%
 %    \end{macrocode}
-% First, we process the optional argument, possibly finding the key-value pair as defined above and changing the scale.
+% The macro consists of three steps:
+% \begin{itemize}
+%    \item Read the optional arguments to see if the user has specified the |scale| argument.
+%    If so, this will trigger a redefinition of the |\mtg@symbolscale| macro and change the scale of the symbols.
+%    \item Run the lua function |mtgcost| to perform string replacments that replace the shorthands with their appropriate commands, for exaple |U| with |\mtgU|.
+%    \item Re-set the |\mtg@symbolscale| macro to its default value.
+% \end{itemize}
 %    \begin{macrocode}
-\setkeys{mtgcost}{#1}%
-%    \end{macrocode}
-% Now the core part of the macro begins, which is mostly lua-based text replacement.
-%    \begin{macrocode}
-\luaexec{
-	local input	= "#2";
-%    \end{macrocode}
-% After putting the input in a lua variable, we begin by replacing the color shorthands with long-form words. This allows us to replace them with the commands later on, while avoiding the problem of double replacements (as these commands contain the shorthands again).
-%    \begin{macrocode}
-	input = input:gsub("W"                    ,"white")
-	input = input:gsub("U"                    ,"blue")
-	input = input:gsub("B"                    ,"black")
-	input = input:gsub("R"                    ,"red")
-	input = input:gsub("G"                    ,"green")
-	input = input:gsub("C"                    ,"colorless")
-%    \end{macrocode}
-% In particular, the raw |P| for a Phyrexian alternative cost only appears with other colors.
-% In this combination, |P| still means Phyrexian and not Paw.
-%    \begin{macrocode}
-	input = input:gsub("/P"                   ,"/phyrexian")
-	input = input:gsub("T"                    ,"tap")
-	input = input:gsub("Q"                    ,"untap")
-	input = input:gsub("E"                    ,"energy")
-	input = input:gsub("A"                    ,"acorn")
-%    \end{macrocode}
-% A |P| without a |/| before it however must always be a pawprint symbol.
-% Confusingly, Wizards chose to have this one letter do double duty.
-%    \begin{macrocode}
-	input = input:gsub("P"                    ,"paw")
-%    \end{macrocode}
-% A |P| used to denote Phyrexian mana of any color, but since Wizards wants to use |P| for the paw symbol, that is now represented by |H| instead.
-%    \begin{macrocode}
-	input = input:gsub("H"                    ,"cphyrexian")
-%    \end{macrocode}
-% After that, the actual replacement can continue without problems.
-%    \begin{macrocode}
-	input = input:gsub("2/white"              ,"\\mtgTwoW")
-	input = input:gsub("2/blue"               ,"\\mtgTwoU")
-	input = input:gsub("2/black"              ,"\\mtgTwoB")
-	input = input:gsub("2/red"                ,"\\mtgTwoR")
-	input = input:gsub("2/green"              ,"\\mtgTwoG")
-	input = input:gsub("white/blue/phyrexian" ,"\\mtgWUP")
-	input = input:gsub("white/black/phyrexian","\\mtgWBP")
-	input = input:gsub("red/white/phyrexian"  ,"\\mtgRWP")
-	input = input:gsub("green/white/phyrexian","\\mtgGWP")
-	input = input:gsub("blue/black/phyrexian" ,"\\mtgUBP")
-	input = input:gsub("blue/red/phyrexian"   ,"\\mtgURP")
-	input = input:gsub("green/blue/phyrexian" ,"\\mtgGUP")
-	input = input:gsub("black/red/phyrexian"  ,"\\mtgBRP")
-	input = input:gsub("black/green/phyrexian","\\mtgBGP")
-	input = input:gsub("red/green/phyrexian"  ,"\\mtgRGP")
-	input = input:gsub("white/blue"           ,"\\mtgWU")
-	input = input:gsub("white/black"          ,"\\mtgWB")
-	input = input:gsub("red/white"            ,"\\mtgRW")
-	input = input:gsub("green/white"          ,"\\mtgGW")
-	input = input:gsub("blue/black"           ,"\\mtgUB")
-	input = input:gsub("blue/red"             ,"\\mtgUR")
-	input = input:gsub("green/blue"           ,"\\mtgGU")
-	input = input:gsub("black/red"            ,"\\mtgBR")
-	input = input:gsub("black/green"          ,"\\mtgBG")
-	input = input:gsub("red/green"            ,"\\mtgRG")
-	input = input:gsub("white/phyrexian"      ,"\\mtgWP")
-	input = input:gsub("blue/phyrexian"       ,"\\mtgUP")
-	input = input:gsub("black/phyrexian"      ,"\\mtgBP")
-	input = input:gsub("red/phyrexian"        ,"\\mtgRP")
-	input = input:gsub("green/phyrexian"      ,"\\mtgGP")
-	input = input:gsub("colorless/white"      ,"\\mtgCW")
-	input = input:gsub("colorless/blue"       ,"\\mtgCU")
-	input = input:gsub("colorless/black"      ,"\\mtgCB")
-	input = input:gsub("colorless/red"        ,"\\mtgCR")
-	input = input:gsub("colorless/green"      ,"\\mtgCG")
-	input = input:gsub("white"                ,"\\mtgW")
-	input = input:gsub("blue"                 ,"\\mtgU")
-	input = input:gsub("black"                ,"\\mtgB")
-	input = input:gsub("red"                  ,"\\mtgR")
-	input = input:gsub("green"                ,"\\mtgG")
-	input = input:gsub("colorless"            ,"\\mtgC")
-	input = input:gsub("untap"                ,"\\mtgQ")
-	input = input:gsub("tap"                  ,"\\mtgT")
-	input = input:gsub("energy"               ,"\\mtgE")
-	input = input:gsub("acorn"                ,"\\mtgA")
-	input = input:gsub("paw"                  ,"\\mtgP")
-	input = input:gsub("cphyrexian"           ,"\\mtgH")
-%    \end{macrocode}
-% For generic mana, we need to perform a regex match to catch all possible numbers after replacing X regularly.
-%    \begin{macrocode}
-	input = input:gsub("X"                    ,"\\mtggeneric{X}")
-	input = input:gsub("Y"                    ,"\\mtggeneric{Y}")
-	input = input:gsub("Z"                    ,"\\mtggeneric{Z}")
-	input = input:gsub("\%d+"                 ,"\\mtggeneric{\%1}")
-%    \end{macrocode}
-% Finally, we just put the replaced string back again.
-%    \begin{macrocode}
-	tex.sprint(input)
-}%
-%    \end{macrocode}
-% Reset the scale modifier (if it was even changed).
-%    \begin{macrocode}
+\setkeys[mtg]{mtgcost}{#1}%
+\directlua{mtgcost("#2")}%
 \renewcommand{\mtg@symbolscale}{\mtg@symbolscaledefault}%
 }
 %    \end{macrocode}
@@ -283,7 +156,7 @@
 \newcommand{\mtgP}{\mtg@symbol{symbols/P.png}}
 \newcommand{\mtgPawprint}{\mtgP}
 \newcommand{\mtgA}{\mtg@symbol{symbols/A.png}}
-\newcommand{\mtgAcorn}{\mtgE}
+\newcommand{\mtgAcorn}{\mtgA}
 \newcommand{\mtgTicket}{\mtg@symbol{symbols/Ticket.png}}
 %    \end{macrocode}
 % 
