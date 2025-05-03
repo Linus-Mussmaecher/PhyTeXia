@@ -1,16 +1,16 @@
 -- Function that takes an input
-function mtggeneric (input_string)
+local function mtggeneric (input_string)
   -- Check if the input was just a positive non-decimal number.
   if string.match(input_string, "^%d+$") then
 
     -- If so, parse it
-    input_number = tonumber(input_string)
+    local input_number = tonumber(input_string)
 
     -- Check if it's in the allowed range.
-  	if ((0 <= tonumber(input_string)
-  	and tonumber(input_string) <= 20)
-  	or tonumber(input_string) == 100
-  	or tonumber(input_string) == 1000000)
+  	if ((0 <= input_number
+  	and input_number <= 20)
+  	or input_number == 100
+  	or input_number == 1000000)
   	then
       -- Print its generic mana symbol.
     	tex.sprint(
@@ -36,11 +36,10 @@ function mtggeneric (input_string)
   else
     -- In all other cases, just throw an error.
     tex.error("Illegal non-numeric input for amount of generic mana");
-  end 
+  end
 end
 
-function mtgcost (input_string)
-  inputb = input_string;
+local function mtgcost (input_string)
   -- After putting the input in a lua variable, we begin by replacing the color shorthands with long-form words. This allows us to replace them with the commands later on, while avoiding the problem of double replacements (as these commands contain the shorthands again).
 	input_string = input_string:gsub("W"                    ,"white")
 	input_string = input_string:gsub("U"                    ,"blue")
@@ -115,4 +114,22 @@ function mtgcost (input_string)
 	input_string = input_string:gsub("%d+"                  ,"\\mtggeneric{%1}")
   -- Finally, we just put the replaced string back again.
 	tex.sprint(input_string)
+end
+
+local http = require("socket.http")
+local ltn12 = require("ltn12")
+
+local function mtgcard(input_string)
+  local headers = {
+    ["User-Agent"] = "PhyTeXia/0.0.1",
+    Accept = "*/*",
+  };
+
+  local output = "";
+
+  output = http.request{
+    url = "https://api.scryfall.com/cards/named?fuzzy=Sublime+Epiphany",
+    headers = headers,
+  }
+  tex.sprint(output);
 end
