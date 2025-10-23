@@ -1,3 +1,5 @@
+latex = tex;
+
 -- Function that takes an input
 function mtggeneric (input_string)
   -- Check if the input was just a positive non-decimal number.
@@ -13,14 +15,14 @@ function mtggeneric (input_string)
   	or input_number == 1000000)
   	then
       -- Print its generic mana symbol.
-    	tex.sprint(
+    	latex.sprint(
     		"\\makeatletter\\mtg@symbol{symbols/",
     		input_string,
     		"}\\makeatother"
     	);
     else
       -- If it's not in the allowed number range, throw an error.
-      tex.error("Illegal numeric input for amount of generic mana");
+      latex.error("Illegal numeric input for amount of generic mana");
     end
   -- Now, check for the 3 allowed non-number amounts.
   elseif input_string == "X"
@@ -28,14 +30,14 @@ function mtggeneric (input_string)
   	or input_string == "Z"
   	then
   	-- And print their symbol.
-  	tex.sprint(
+  	latex.sprint(
   		"\\makeatletter\\mtg@symbol{symbols/",
   		input_string,
   		"}\\makeatother"
   	);
   else
     -- In all other cases, just throw an error.
-    tex.error("Illegal non-numeric input for amount of generic mana");
+    latex.error("Illegal non-numeric input for amount of generic mana");
   end
 end
 
@@ -113,9 +115,69 @@ function mtgcost (input_string)
 	input_string = input_string:gsub("Z"                    ,"\\mtggeneric{Z}")
 	input_string = input_string:gsub("%d+"                  ,"\\mtggeneric{%1}")
   -- Finally, we just put the replaced string back again.
-	tex.sprint(input_string)
+	latex.sprint(input_string)
 end
 
 function mtgcard(input_string)
-  tex.sprint(output);
+  local info = get_card_data(input_string)
+  latex.sprint("\\href{")
+  latex.sprint(info["scryfall_uri"]);
+  latex.sprint("}{")
+  latex.sprint(info["name"]);
+  latex.sprint("}")
+end
+
+function mtgcardcost(input_string)
+  local info = get_card_data(input_string)
+  mtgcost(info["mana_cost"])
+end
+
+function mtgcardimg(input_string)
+  local info = get_card_data(input_string)
+  latex.sprint(info["artist"]);
+end
+
+
+local last_api_call = 0
+
+function get_card_data(name)
+  -- Wait to not send to many requests.
+  while os.clock() < last_api_call + 0.01 do end
+  last_api_call = os.clock()
+
+  -- Get the data via curl over the command line.
+  -- Requires shell-escape
+  local curl_data = io.popen (
+    string.format(
+        "curl -A \"PhyTeXia/1.0\" -s -k https://api.scryfall.com/cards/named?fuzzy=%s",
+        name:gsub(" ","+")
+      )
+    )
+
+  local info = nil
+
+  -- check if io.popen worked
+  if curl_data then
+      info = curl_data:read ("*a")  -- read entire file into string
+
+      -- check if we got something
+      if (not info) or (#info == 0) then
+         info = nil                -- empty string
+      end
+
+      io.close (curl_data)   -- close the file (pipe)
+      curl_data = nil              -- (in case not global, remove stale data)
+   else
+      info = nil -- File not found
+   end
+
+   -- parse to JSON
+   local json = require "json"
+   local info_parsed = json.parse(info)
+
+   if (info_parsed == 0) then
+     latex.error(string.format("Could not find card %s.", name))
+   end
+
+   return info_parsed
 end

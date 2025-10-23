@@ -2,10 +2,23 @@
 % This file contains the implementation for macros that display magic cards in \LaTeX.
 % \fi
 % \subsection{Displaying Cards}
-% First, a basic card command that pull the card from the scryfall API and displays it as an image.
+% First, a basic card command that pull information about a card from the scryfall API and display its name.
+% This will use fuzzy search and thus correct any misspellings.
 %
 %    \begin{macrocode}
-\newcommand{\mtgcard}[1]{\texttt{#1}}
+\newcommand{\mtgcard}[1]{\directlua{mtgcard("#1")}}
+%    \end{macrocode}
+%
+% This next command will display the correctly formatted cost of the given card.
+% 
+%    \begin{macrocode}
+\newcommand{\mtgcardcost}[1]{\directlua{mtgcardcost("#1")}}
+%    \end{macrocode}
+%
+% Finally, we can display the card as an image.
+%
+%    \begin{macrocode}
+\newcommand{\mtgcardimg}[1]{\directlua{mtgcardimg("#1")}}
 %    \end{macrocode}
 % This command will form the basis of many other commands.
 % The |gallery|-command displays multiple cards in centered rows.

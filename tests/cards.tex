@@ -1,15 +1,19 @@
 \documentclass[a4paper]{scrartcl}
 \usepackage{phytexia}
+\usepackage{hyperref}
 
 \begin{document}
-	Here, we see a card:
+	The amazing card \mtgcard{Sublime Ephiphany} costs \mtgcardcost{Sublime Epiphany} -- which is sadly very expensive.
+
+	This uses fuzzy search and will correct your spelling, so you can do something like misspell the name of \mtgcard{Valey Flodcaller}.
+
+	Here, we see some cards:
 	\begin{figure}[h]
-		\mtgcard{Sublime Epiphany}
+		\mtgcardimg{Sublime Epiphany}
 		\caption{Sublime Epiphany}
 	\end{figure}
-	and here a card pulled with its special version:
 	\begin{figure}[h]
-		\mtgcard{Sleight of Hand|SLP}
+		\mtgcardimg{Sleight of Hand}
 		\caption{Sleight of Hand, Secret Lair Version}
 	\end{figure}
 \end{document}

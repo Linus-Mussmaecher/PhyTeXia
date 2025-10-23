@@ -14,13 +14,15 @@ latexmk -pdflua phytexia.dtx -interaction=nonstopmode > phytexia.out-log
 [tasks.build-examples]
 script = '''
 rm -f examples/phytexia.sty
+rm -f examples/json.lua
 rm -f examples/phytexia.lua
 rm -f examples/symbols
 ln -rs src/phytexia.sty examples/phytexia.sty
+ln -rs src/json.lua examples/json.lua
 ln -rs src/phytexia.lua examples/phytexia.lua
 ln -rs src/symbols/png-symbols/ examples/symbols
 cd ./examples
-latexmk -pdflua -interaction=nonstopmode main.tex > main.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode main.tex > main.out-log
 '''
 
 [tasks.build-pngs]
@@ -32,15 +34,17 @@ script = '''
 [tasks.build-tests]
 script = '''
 rm -f tests/phytexia.sty
+rm -f tests/json.lua
 rm -f tests/phytexia.lua
 rm -f tests/symbols
 ln -rs src/phytexia.sty tests/phytexia.sty
+ln -rs src/json.lua tests/json.lua
 ln -rs src/phytexia.lua tests/phytexia.lua
 ln -rs src/symbols/png-symbols/ tests/symbols
 cd ./tests
-latexmk -pdflua -interaction=nonstopmode cards.tex > cards.out-log
-latexmk -pdflua -interaction=nonstopmode decks.tex > decks.out-log
-latexmk -pdflua -interaction=nonstopmode symbols.tex > symbols.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode cards.tex > cards.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode decks.tex > decks.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode symbols.tex > symbols.out-log
 '''
 
 [tasks.clean-examples]
