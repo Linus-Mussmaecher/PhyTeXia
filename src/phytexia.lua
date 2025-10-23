@@ -140,19 +140,35 @@ end
 
 local last_api_call = 0
 
-function get_card_data(name)
+function get_card_data(input_string)
   -- Wait to not send to many requests.
   while os.clock() < last_api_call + 0.01 do end
   last_api_call = os.clock()
 
+  -- Create the basis for the request string.
+  local url = "https://api.scryfall.com/cards/named?"
+
+  -- Check if the input_string contains a set code.
+  local barpos = input_string:find("|");
+  if barpos == nil then
+    -- If no, the entire input is the name.
+    url = url
+      .. "fuzzy="
+      .. input_string:gsub(" ", "+")
+  else
+    -- If yes, split the string into name and set.
+    local name = input_string:sub(1,barpos-1):gsub(" ", "+")
+    local set = input_string:sub(barpos+1)
+    url = url
+      .. "fuzzy="
+      .. name
+      .. "&set="
+      .. set
+  end
+
   -- Get the data via curl over the command line.
   -- Requires shell-escape
-  local curl_data = io.popen (
-    string.format(
-        "curl -A \"PhyTeXia/1.0\" -s -k https://api.scryfall.com/cards/named?fuzzy=%s",
-        name:gsub(" ","+")
-      )
-    )
+  local curl_data = io.popen ("curl -A \"PhyTeXia/1.0\" -s -k \"".. url .."\"")
 
   local info = nil
 
@@ -168,7 +184,8 @@ function get_card_data(name)
       io.close (curl_data)   -- close the file (pipe)
       curl_data = nil              -- (in case not global, remove stale data)
    else
-      info = nil -- File not found
+      latex.error(string.format("Could not find card %s.", input_string))
+      return 0
    end
 
    -- parse to JSON
@@ -176,7 +193,8 @@ function get_card_data(name)
    local info_parsed = json.parse(info)
 
    if (info_parsed == 0) then
-     latex.error(string.format("Could not find card %s.", name))
+     latex.error(string.format("Could not parse information for card %s.", input_string))
+     return 0
    end
 
    return info_parsed
