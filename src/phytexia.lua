@@ -144,6 +144,8 @@ local function split_input(input_string)
     name = input_string:sub(1,barpos-1)
     set = input_string:sub(barpos+1)
   end
+  -- Sanitation
+  name = name:gsub(",", ""):gsub("/","")
   return name, set
 end
 
@@ -222,10 +224,14 @@ function PHYTEXIA.mtgcardcost(input_string)
   end
 end
 
-function PHYTEXIA.mtgcardimg(input_string)
+function PHYTEXIA.mtgcardimg(input_string, args)
+  if args == nil then
+      args = ""
+  end
+
   local name, set = split_input(input_string)
 
-  io.popen("mkdir .card-imgs")
+  io.popen("mkdir -p .card-imgs")
 
   local path = ".card-imgs/" .. name:gsub(" ", "-")
 
@@ -242,12 +248,11 @@ function PHYTEXIA.mtgcardimg(input_string)
       local img_url = info["image_uris"]["normal"]
 
       local curl_data = io.popen ("curl -A \"PhyTeXia/1.0\" -s -k \"".. img_url .."\" > \"" .. path .. "\"")
+    else
+      latex.error("Could not find card image.")
+      return
     end
   end
 
-
-
-  latex.sprint("\\includegraphics[width=4cm]{")
-  latex.sprint(path)
-  latex.sprint("}")
+  latex.sprint("\\includegraphics[width=\\mtgcardwidth," .. args .. "]{" .. path .. "}")
 end

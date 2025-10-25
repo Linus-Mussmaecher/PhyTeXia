@@ -16,13 +16,15 @@
 %    \end{macrocode}
 %
 % Finally, we can display the card as an image.
-% First, we need to set a general width for this:
 %    \begin{macrocode}
-\newlength{\mtgcardwidth}{5cm}
+\newcommand{\mtgcardwidth}{4cm}
 %    \end{macrocode}
-% Then, we can define the command for displaying a card:
 %    \begin{macrocode}
-\newcommand{\mtgcardimg}[1]{\directlua{PHYTEXIA.mtgcardimg("#1")}}
+\newcommand{\mtgsetcardwidth}[1]{\renewcommand{\mtgcardwidth}{#1}}
+%    \end{macrocode}
+% We define the command for displaying a card:
+%    \begin{macrocode}
+\newcommand{\mtgcardimg}[2][]{\directlua{PHYTEXIA.mtgcardimg("#2", "#1")}}
 %    \end{macrocode}
 % This command will form the basis of many other commands.
 % The |gallery|-command displays multiple cards in centered rows.

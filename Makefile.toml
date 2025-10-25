@@ -52,22 +52,22 @@ ln -rs src/phytexia.lua tests/phytexia.lua
 ln -rs src/symbols/png-symbols/ tests/symbols
 '''
 
-[tasks.build-test-cards]
-dependencies = ["build-tests-prepare"]
+[tasks.build-and-test-cards]
+dependencies = ["build-tests-prepare", "build-package"]
 script = '''
 cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode cards.tex > cards.out-log
 '''
 
-[tasks.build-test-decks]
-dependencies = ["build-tests-prepare"]
+[tasks.build-and-test-decks]
+dependencies = ["build-tests-prepare", "build-package"]
 script = '''
 cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode decks.tex > decks.out-log
 '''
 
-[tasks.build-test-symbols]
-dependencies = ["build-tests-prepare"]
+[tasks.build-and-test-symbols]
+dependencies = ["build-tests-prepare", "build-package"]
 script = '''
 cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode symbols.tex > symbols.out-log
