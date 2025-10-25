@@ -308,3 +308,5 @@ TSWLatexianTemp*
 
 # png files from symbols
 *.png
+
+.card-imgs

@@ -6,19 +6,23 @@
 % This will use fuzzy search and thus correct any misspellings.
 %
 %    \begin{macrocode}
-\newcommand{\mtgcard}[1]{\directlua{mtgcard("#1")}}
+\newcommand{\mtgcard}[1]{\directlua{PHYTEXIA.mtgcard("#1")}}
 %    \end{macrocode}
 %
 % This next command will display the correctly formatted cost of the given card.
 % 
 %    \begin{macrocode}
-\newcommand{\mtgcardcost}[1]{\directlua{mtgcardcost("#1")}}
+\newcommand{\mtgcardcost}[1]{\directlua{PHYTEXIA.mtgcardcost("#1")}}
 %    \end{macrocode}
 %
 % Finally, we can display the card as an image.
-%
+% First, we need to set a general width for this:
 %    \begin{macrocode}
-\newcommand{\mtgcardimg}[1]{\directlua{mtgcardimg("#1")}}
+\newlength{\mtgcardwidth}{5cm}
+%    \end{macrocode}
+% Then, we can define the command for displaying a card:
+%    \begin{macrocode}
+\newcommand{\mtgcardimg}[1]{\directlua{PHYTEXIA.mtgcardimg("#1")}}
 %    \end{macrocode}
 % This command will form the basis of many other commands.
 % The |gallery|-command displays multiple cards in centered rows.

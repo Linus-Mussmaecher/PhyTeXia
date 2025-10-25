@@ -1,7 +1,14 @@
-latex = tex;
+local latex = tex;
+PHYTEXIA = {}
+
+local function dbg(string)
+  latex.sprint("\\begin{verbatim}")
+  latex.sprint(string)
+  latex.sprint("\\end{verbatim}")
+end
 
 -- Function that takes an input
-function mtggeneric (input_string)
+function PHYTEXIA.mtggeneric (input_string)
   -- Check if the input was just a positive non-decimal number.
   if string.match(input_string, "^%d+$") then
 
@@ -41,7 +48,7 @@ function mtggeneric (input_string)
   end
 end
 
-function mtgcost (input_string)
+function PHYTEXIA.mtgcost (input_string)
   -- After putting the input in a lua variable, we begin by replacing the color shorthands with long-form words. This allows us to replace them with the commands later on, while avoiding the problem of double replacements (as these commands contain the shorthands again).
 	input_string = input_string:gsub("W"                    ,"white")
 	input_string = input_string:gsub("U"                    ,"blue")
@@ -118,29 +125,29 @@ function mtgcost (input_string)
 	latex.sprint(input_string)
 end
 
-function mtgcard(input_string)
-  local info = get_card_data(input_string)
-  latex.sprint("\\href{")
-  latex.sprint(info["scryfall_uri"]);
-  latex.sprint("}{")
-  latex.sprint(info["name"]);
-  latex.sprint("}")
-end
-
-function mtgcardcost(input_string)
-  local info = get_card_data(input_string)
-  mtgcost(info["mana_cost"])
-end
-
-function mtgcardimg(input_string)
-  local info = get_card_data(input_string)
-  latex.sprint(info["artist"]);
-end
 
 
 local last_api_call = 0
 
-function get_card_data(input_string)
+-- Splits a string of the form 'Sleight of Hand|SLD' into 'Sleight of Hand' and 'SLD'
+local function split_input(input_string)
+  local name = nil
+  local set = nil
+  -- Check if the input_string contains a set code.
+  local barpos = input_string:find("|");
+  if barpos == nil then
+    -- If no, the entire input is the name.
+    name = input_string
+    set = nil
+  else
+    -- If yes, split the string into name and set.
+    name = input_string:sub(1,barpos-1)
+    set = input_string:sub(barpos+1)
+  end
+  return name, set
+end
+
+local function get_card_data(input_string)
   -- Wait to not send to many requests.
   while os.clock() < last_api_call + 0.01 do end
   last_api_call = os.clock()
@@ -148,22 +155,15 @@ function get_card_data(input_string)
   -- Create the basis for the request string.
   local url = "https://api.scryfall.com/cards/named?"
 
-  -- Check if the input_string contains a set code.
-  local barpos = input_string:find("|");
-  if barpos == nil then
-    -- If no, the entire input is the name.
-    url = url
-      .. "fuzzy="
-      .. input_string:gsub(" ", "+")
-  else
-    -- If yes, split the string into name and set.
-    local name = input_string:sub(1,barpos-1):gsub(" ", "+")
-    local set = input_string:sub(barpos+1)
-    url = url
-      .. "fuzzy="
-      .. name
-      .. "&set="
-      .. set
+  -- Split the input
+  local name, set = split_input(input_string)
+
+  -- Put the name into URL-compatible format and insert it to correct parameter.
+  url = url .. "fuzzy=" .. name:gsub(" ", "+")
+
+  -- If a set was given, append it with correct parameter.
+  if set ~= nil then
+    url = url .. "&set=" .. set
   end
 
   -- Get the data via curl over the command line.
@@ -198,4 +198,56 @@ function get_card_data(input_string)
    end
 
    return info_parsed
+end
+
+function PHYTEXIA.mtgcard(input_string)
+  local info = get_card_data(input_string)
+  if (info ~= nil) then
+    latex.sprint("\\href{")
+    latex.sprint(info["scryfall_uri"]);
+    latex.sprint("}{")
+    latex.sprint(info["name"]);
+    latex.sprint("}")
+  else
+    latex.error("Could not fetch card info.")
+  end
+end
+
+function PHYTEXIA.mtgcardcost(input_string)
+  local info = get_card_data(input_string)
+  if (info ~= nil) then
+    PHYTEXIA.mtgcost(info["mana_cost"])
+  else
+    latex.error("Could not fetch card info.")
+  end
+end
+
+function PHYTEXIA.mtgcardimg(input_string)
+  local name, set = split_input(input_string)
+
+  io.popen("mkdir .card-imgs")
+
+  local path = ".card-imgs/" .. name:gsub(" ", "-")
+
+  if set ~= nil then
+    path = path .. "_" .. set
+  end
+
+  path = path .. ".jpg"
+
+  if io.open(path) == nil then
+    local info = get_card_data(input_string)
+
+    if info ~= nil then
+      local img_url = info["image_uris"]["normal"]
+
+      local curl_data = io.popen ("curl -A \"PhyTeXia/1.0\" -s -k \"".. img_url .."\" > \"" .. path .. "\"")
+    end
+  end
+
+
+
+  latex.sprint("\\includegraphics[width=4cm]{")
+  latex.sprint(path)
+  latex.sprint("}")
 end

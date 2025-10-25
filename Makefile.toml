@@ -32,6 +32,15 @@ script = '''
 '''
 
 [tasks.build-tests]
+dependencies = ["build-tests-prepare"]
+script = '''
+cd ./tests
+latexmk -pdflua --shell-escape -interaction=nonstopmode cards.tex > cards.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode decks.tex > decks.out-log
+latexmk -pdflua --shell-escape -interaction=nonstopmode symbols.tex > symbols.out-log
+'''
+
+[tasks.build-tests-prepare]
 script = '''
 rm -f tests/phytexia.sty
 rm -f tests/json.lua
@@ -41,9 +50,26 @@ ln -rs src/phytexia.sty tests/phytexia.sty
 ln -rs src/json.lua tests/json.lua
 ln -rs src/phytexia.lua tests/phytexia.lua
 ln -rs src/symbols/png-symbols/ tests/symbols
+'''
+
+[tasks.build-test-cards]
+dependencies = ["build-tests-prepare"]
+script = '''
 cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode cards.tex > cards.out-log
+'''
+
+[tasks.build-test-decks]
+dependencies = ["build-tests-prepare"]
+script = '''
+cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode decks.tex > decks.out-log
+'''
+
+[tasks.build-test-symbols]
+dependencies = ["build-tests-prepare"]
+script = '''
+cd ./tests
 latexmk -pdflua --shell-escape -interaction=nonstopmode symbols.tex > symbols.out-log
 '''
 

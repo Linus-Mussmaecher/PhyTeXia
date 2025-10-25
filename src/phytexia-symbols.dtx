@@ -107,7 +107,7 @@
 %    \end{macrocode}
 % \paragraph{Generic Mana:} The code for generic mana is a bit more complicated, as, instead of defining 20 different macros for the 20+ generic mana symbols that appear frequently in MTG, we use some Lua code to parse the input and find the correct symbol.
 %    \begin{macrocode}
-\newcommand{\mtggeneric}[1]{\directlua{mtggeneric("#1")}}
+\newcommand{\mtggeneric}[1]{\directlua{PHYTEXIA.mtggeneric("#1")}}
 %    \end{macrocode}
 % There is currently no support for the mana costs of Gleemax (1,000,000).
 % These and some more symbols mentioned on scryfall are in the works.
@@ -135,7 +135,7 @@
 % \end{itemize}
 %    \begin{macrocode}
 \setkeys[mtg]{mtgcost}{#1}%
-\directlua{mtgcost("#2")}%
+\directlua{PHYTEXIA.mtgcost("#2")}%
 \renewcommand{\mtg@symbolscale}{\mtg@symbolscaledefault}%
 }
 %    \end{macrocode}
